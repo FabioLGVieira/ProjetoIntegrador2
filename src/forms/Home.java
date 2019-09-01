@@ -130,7 +130,7 @@ public class Home extends javax.swing.JFrame {
         //iniciar proxima classe aqui para mudar a tela
         while (!nome.equals("admin") || !senha.equals("admin")) {
             //tem q por uma pausa aqui
-//JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos. Tente de novo.");
+            //JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos. Tente de novo.");
         }
             JOptionPane.showMessageDialog(null, "Login feito!");
             this.setVisible(false);
