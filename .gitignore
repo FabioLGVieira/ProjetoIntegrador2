@@ -1,1 +1,7 @@
-/dist/
+/build/
+/bin/
+/nbproject/*
+/dist/*
+private.*
+*.classpath
+*.project
