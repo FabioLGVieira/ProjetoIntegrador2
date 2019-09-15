@@ -9,13 +9,14 @@ package forms;
  *
  * @author icaro.nsousa
  */
-public class From_carrinho extends javax.swing.JFrame {
+public class carrinhoView extends javax.swing.JFrame {
 
     /**
      * Creates new form From_carrinho
      */
-    public From_carrinho() {
+    public carrinhoView() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -50,22 +51,23 @@ public class From_carrinho extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_carrilho = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carrinho");
+        setResizable(false);
 
         jLabel1.setText("Produto");
 
-        jLabel2.setText("Quatidade");
+        jLabel2.setText("Quantidade");
 
         jLabel3.setText("Valor");
 
-        btn_pequisa.setText("Pesquisa");
+        btn_pequisa.setText("Pesquisar");
         btn_pequisa.setMaximumSize(new java.awt.Dimension(80, 25));
         btn_pequisa.setMinimumSize(new java.awt.Dimension(80, 25));
 
-        btn_adisionar.setText("Adisionar");
+        btn_adisionar.setText("Adicionar");
 
-        btn_auterar.setText("Auterar");
+        btn_auterar.setText("Alterar");
         btn_auterar.setMaximumSize(new java.awt.Dimension(80, 25));
         btn_auterar.setMinimumSize(new java.awt.Dimension(80, 25));
 
@@ -102,7 +104,7 @@ public class From_carrinho extends javax.swing.JFrame {
         );
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel4.setText("Valor Todal:");
+        jLabel4.setText("Valor Total:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Data de Entrega:");
@@ -110,7 +112,12 @@ public class From_carrinho extends javax.swing.JFrame {
         lbl_prosoT.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lbl_prosoT.setText("R$:0,00");
 
-        jButton1.setText("Finaliza");
+        jButton1.setText("Finalizar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         try {
             jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
@@ -207,7 +214,7 @@ public class From_carrinho extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "CODIGO", "Produto", "Quatidade", "Valor"
+                "CODIGO", "Produto", "Quantidade", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -230,7 +237,7 @@ public class From_carrinho extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "CODIGO", "Produto", "Quatidade", "Valor"
+                "CODIGO", "Produto", "Quantidade", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -241,6 +248,7 @@ public class From_carrinho extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbl_carrilho.setCellSelectionEnabled(true);
         jScrollPane1.setViewportView(tbl_carrilho);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -270,6 +278,10 @@ public class From_carrinho extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -287,20 +299,21 @@ public class From_carrinho extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(From_carrinho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(carrinhoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(From_carrinho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(carrinhoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(From_carrinho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(carrinhoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(From_carrinho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(carrinhoView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new From_carrinho().setVisible(true);
+                new carrinhoView().setVisible(true);
             }
         });
     }
