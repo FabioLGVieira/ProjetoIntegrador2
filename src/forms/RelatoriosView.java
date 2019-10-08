@@ -34,18 +34,28 @@ public class RelatoriosView extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         Mes2 = new javax.swing.JPanel();
         Mes3 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        txt_pesquisa9 = new javax.swing.JTextField();
+        btn_pesquisa9 = new javax.swing.JButton();
+        cmb_prequisa9 = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        txt_pesquisa10 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        txt_pesquisa11 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Código Venda", "Data", "Cliente", "CPF", "Valor Total"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -56,14 +66,14 @@ public class RelatoriosView extends javax.swing.JFrame {
             Mes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Mes1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 913, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)
                 .addContainerGap())
         );
         Mes1Layout.setVerticalGroup(
             Mes1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Mes1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Mes1", Mes1);
@@ -72,11 +82,11 @@ public class RelatoriosView extends javax.swing.JFrame {
         Mes2.setLayout(Mes2Layout);
         Mes2Layout.setHorizontalGroup(
             Mes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 933, Short.MAX_VALUE)
+            .addGap(0, 953, Short.MAX_VALUE)
         );
         Mes2Layout.setVerticalGroup(
             Mes2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addGap(0, 384, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Mes2", Mes2);
@@ -85,34 +95,129 @@ public class RelatoriosView extends javax.swing.JFrame {
         Mes3.setLayout(Mes3Layout);
         Mes3Layout.setHorizontalGroup(
             Mes3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 933, Short.MAX_VALUE)
+            .addGap(0, 953, Short.MAX_VALUE)
         );
         Mes3Layout.setVerticalGroup(
             Mes3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 459, Short.MAX_VALUE)
+            .addGap(0, 384, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Mes3", Mes3);
+
+        jPanel13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        txt_pesquisa9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_pesquisa9ActionPerformed(evt);
+            }
+        });
+
+        btn_pesquisa9.setText("Procurar");
+
+        cmb_prequisa9.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código Venda", "CPF Cliente" }));
+        cmb_prequisa9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_prequisa9ActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Pesquisar por:");
+
+        jLabel17.setText("De:");
+
+        txt_pesquisa10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_pesquisa10ActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("Até:");
+
+        txt_pesquisa11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_pesquisa11ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_pesquisa9, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmb_prequisa9, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_pesquisa10, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txt_pesquisa11, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(btn_pesquisa9, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_pesquisa9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmb_prequisa9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_pesquisa10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel17)
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_pesquisa11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18)
+                            .addComponent(btn_pesquisa9))))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1)
-                .addContainerGap())
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txt_pesquisa9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pesquisa9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_pesquisa9ActionPerformed
+
+    private void cmb_prequisa9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_prequisa9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmb_prequisa9ActionPerformed
+
+    private void txt_pesquisa10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pesquisa10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_pesquisa10ActionPerformed
+
+    private void txt_pesquisa11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pesquisa11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_pesquisa11ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,8 +259,62 @@ public class RelatoriosView extends javax.swing.JFrame {
     private javax.swing.JPanel Mes1;
     private javax.swing.JPanel Mes2;
     private javax.swing.JPanel Mes3;
+    private javax.swing.JButton btn_pesquisa;
+    private javax.swing.JButton btn_pesquisa1;
+    private javax.swing.JButton btn_pesquisa2;
+    private javax.swing.JButton btn_pesquisa3;
+    private javax.swing.JButton btn_pesquisa4;
+    private javax.swing.JButton btn_pesquisa5;
+    private javax.swing.JButton btn_pesquisa6;
+    private javax.swing.JButton btn_pesquisa7;
+    private javax.swing.JButton btn_pesquisa8;
+    private javax.swing.JButton btn_pesquisa9;
+    private javax.swing.JComboBox<String> cmb_prequisa;
+    private javax.swing.JComboBox<String> cmb_prequisa1;
+    private javax.swing.JComboBox<String> cmb_prequisa2;
+    private javax.swing.JComboBox<String> cmb_prequisa3;
+    private javax.swing.JComboBox<String> cmb_prequisa4;
+    private javax.swing.JComboBox<String> cmb_prequisa5;
+    private javax.swing.JComboBox<String> cmb_prequisa6;
+    private javax.swing.JComboBox<String> cmb_prequisa7;
+    private javax.swing.JComboBox<String> cmb_prequisa8;
+    private javax.swing.JComboBox<String> cmb_prequisa9;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txt_pesquisa;
+    private javax.swing.JTextField txt_pesquisa1;
+    private javax.swing.JTextField txt_pesquisa10;
+    private javax.swing.JTextField txt_pesquisa11;
+    private javax.swing.JTextField txt_pesquisa2;
+    private javax.swing.JTextField txt_pesquisa3;
+    private javax.swing.JTextField txt_pesquisa4;
+    private javax.swing.JTextField txt_pesquisa5;
+    private javax.swing.JTextField txt_pesquisa6;
+    private javax.swing.JTextField txt_pesquisa7;
+    private javax.swing.JTextField txt_pesquisa8;
+    private javax.swing.JTextField txt_pesquisa9;
     // End of variables declaration//GEN-END:variables
 }

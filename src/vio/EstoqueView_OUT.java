@@ -1,6 +1,7 @@
-package forms;
+package vio;
 
 
+import forms.RelatoriosView;
 import java.awt.Label;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
