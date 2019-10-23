@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package forms;
+package view;
 
 /**
  *
@@ -166,17 +166,19 @@ public class RelatoriosView extends javax.swing.JFrame {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_pesquisa9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmb_prequisa9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt_pesquisa10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel17)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_pesquisa11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel18)
-                            .addComponent(btn_pesquisa9))))
+                            .addComponent(btn_pesquisa9))
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txt_pesquisa10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17)))
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_pesquisa9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmb_prequisa9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -259,62 +261,17 @@ public class RelatoriosView extends javax.swing.JFrame {
     private javax.swing.JPanel Mes1;
     private javax.swing.JPanel Mes2;
     private javax.swing.JPanel Mes3;
-    private javax.swing.JButton btn_pesquisa;
-    private javax.swing.JButton btn_pesquisa1;
-    private javax.swing.JButton btn_pesquisa2;
-    private javax.swing.JButton btn_pesquisa3;
-    private javax.swing.JButton btn_pesquisa4;
-    private javax.swing.JButton btn_pesquisa5;
-    private javax.swing.JButton btn_pesquisa6;
-    private javax.swing.JButton btn_pesquisa7;
-    private javax.swing.JButton btn_pesquisa8;
     private javax.swing.JButton btn_pesquisa9;
-    private javax.swing.JComboBox<String> cmb_prequisa;
-    private javax.swing.JComboBox<String> cmb_prequisa1;
-    private javax.swing.JComboBox<String> cmb_prequisa2;
-    private javax.swing.JComboBox<String> cmb_prequisa3;
-    private javax.swing.JComboBox<String> cmb_prequisa4;
-    private javax.swing.JComboBox<String> cmb_prequisa5;
-    private javax.swing.JComboBox<String> cmb_prequisa6;
-    private javax.swing.JComboBox<String> cmb_prequisa7;
-    private javax.swing.JComboBox<String> cmb_prequisa8;
     private javax.swing.JComboBox<String> cmb_prequisa9;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txt_pesquisa;
-    private javax.swing.JTextField txt_pesquisa1;
     private javax.swing.JTextField txt_pesquisa10;
     private javax.swing.JTextField txt_pesquisa11;
-    private javax.swing.JTextField txt_pesquisa2;
-    private javax.swing.JTextField txt_pesquisa3;
-    private javax.swing.JTextField txt_pesquisa4;
-    private javax.swing.JTextField txt_pesquisa5;
-    private javax.swing.JTextField txt_pesquisa6;
-    private javax.swing.JTextField txt_pesquisa7;
-    private javax.swing.JTextField txt_pesquisa8;
     private javax.swing.JTextField txt_pesquisa9;
     // End of variables declaration//GEN-END:variables
 }

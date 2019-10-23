@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vio;
+package out;
 
-import forms.EstoqueView;
-import forms.RelatoriosView;
-import forms.carrinhoView;
+import view.EstoqueView;
+import view.RelatoriosView;
+import view.carrinhoView;
 import javax.swing.JOptionPane;
 
 /**

@@ -1,22 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package forms;
 
-/**
- *
- * @author icaro.nsousa
- */
+package view;
+
 public class EstoqueView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form From_cadastroProdutos
-     */
     public EstoqueView() {
         initComponents();
         setLocationRelativeTo(null);
+        txt_compra.setEnabled(false);
+        txt_venda.setEnabled(false);
+        txt_fornecedor.setEnabled(false);
+        txt_pruduto.setEnabled(false);
+        txt_quatidade.setEnabled(false);
+        txt_data.setEnabled(false);
+        
     }
 
     /**
@@ -40,7 +36,7 @@ public class EstoqueView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txt_fronesedro = new javax.swing.JTextField();
+        txt_fornecedor = new javax.swing.JTextField();
         txt_compra = new javax.swing.JTextField();
         txt_data = new javax.swing.JFormattedTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -117,7 +113,7 @@ public class EstoqueView extends javax.swing.JFrame {
         jLabel6.setText("Data de Entrada");
 
         try {
-            txt_data.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
+            txt_data.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -135,7 +131,7 @@ public class EstoqueView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txt_compra)
-                    .addComponent(txt_fronesedro)
+                    .addComponent(txt_fornecedor)
                     .addComponent(txt_data, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -145,7 +141,7 @@ public class EstoqueView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txt_fronesedro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_fornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -211,6 +207,11 @@ public class EstoqueView extends javax.swing.JFrame {
         btn_remover.setBackground(new java.awt.Color(204, 0, 0));
         btn_remover.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btn_remover.setText("Remover");
+        btn_remover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removerActionPerformed(evt);
+            }
+        });
 
         btn_aoterra.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btn_aoterra.setText("Alterar");
@@ -327,6 +328,10 @@ public class EstoqueView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_pesquisaActionPerformed
 
+    private void btn_removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerActionPerformed
+        int linha = tbl_estoque.getSelectedRow();
+    }//GEN-LAST:event_btn_removerActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -392,7 +397,7 @@ public class EstoqueView extends javax.swing.JFrame {
     private javax.swing.JTable tbl_estoque;
     private javax.swing.JTextField txt_compra;
     private javax.swing.JFormattedTextField txt_data;
-    private javax.swing.JTextField txt_fronesedro;
+    private javax.swing.JTextField txt_fornecedor;
     private javax.swing.JTextField txt_pesquisa;
     private javax.swing.JTextField txt_pruduto;
     private javax.swing.JTextField txt_quatidade;
