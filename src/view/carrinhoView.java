@@ -5,12 +5,27 @@
  */
 package view;
 
+import controller.ProdutoController;
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 public class carrinhoView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form From_carrinho
-     */
+    Connection con;
+    Statement rst;
+
     public carrinhoView() {
+        try{
+        this.con = DriverManager.getConnection("jdbc:mysql://localhost:3380/test", "root", "");
+        this.rst = (Statement) con.createStatement();}
+        catch(Exception e){
+            
+        }
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -41,13 +56,13 @@ public class carrinhoView extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         lbl_prosoT = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        txt_valor1 = new javax.swing.JTextField();
+        jFTdata = new javax.swing.JFormattedTextField();
+        txt_cpf = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_estoque = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbl_carrilho = new javax.swing.JTable();
+        tbl_carrinho = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -71,6 +86,11 @@ public class carrinhoView extends javax.swing.JFrame {
         btn_pequisa.setText("Pesquisar");
         btn_pequisa.setMaximumSize(new java.awt.Dimension(80, 25));
         btn_pequisa.setMinimumSize(new java.awt.Dimension(80, 25));
+        btn_pequisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pequisaActionPerformed(evt);
+            }
+        });
 
         btn_adisionar.setText("Adicionar");
 
@@ -127,10 +147,16 @@ public class carrinhoView extends javax.swing.JFrame {
         });
 
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
+            jFTdata.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+
+        txt_cpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_cpfActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel10.setText("CPF do cliente:");
@@ -150,11 +176,11 @@ public class carrinhoView extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                        .addComponent(jFTdata, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(21, 21, 21)
-                        .addComponent(txt_valor1)))
+                        .addComponent(txt_cpf)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -167,11 +193,11 @@ public class carrinhoView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFTdata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(txt_valor1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(12, 12, 12))
@@ -247,7 +273,7 @@ public class carrinhoView extends javax.swing.JFrame {
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        tbl_carrilho.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_carrinho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -266,8 +292,8 @@ public class carrinhoView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbl_carrilho.setCellSelectionEnabled(true);
-        jScrollPane1.setViewportView(tbl_carrilho);
+        tbl_carrinho.setCellSelectionEnabled(true);
+        jScrollPane1.setViewportView(tbl_carrinho);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -382,7 +408,7 @@ public class carrinhoView extends javax.swing.JFrame {
         From_Cliente minhaJanelaCadastroCliente;
         minhaJanelaCadastroCliente = new From_Cliente();
         minhaJanelaCadastroCliente.setVisible(true);
-        
+
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
@@ -390,15 +416,23 @@ public class carrinhoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
-	private boolean verificaCampos() {
-        if (this.txtNome.getText().equals("")) {
+    private void txt_cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_cpfActionPerformed
+
+    private void btn_pequisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pequisaActionPerformed
+        //rst.exe;
+    }//GEN-LAST:event_btn_pequisaActionPerformed
+
+    private boolean verificaCampos() {
+        if (this.txt_produto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite o nome do produto");
             return false;
         }
-        if (this.txtValor.getText().equals("")) {
+        if (this.txt_valor.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite valor para o porduto");
             return false;
         }
@@ -413,34 +447,39 @@ public class carrinhoView extends javax.swing.JFrame {
         modelProdutos.addColumn("Nome");
         modelProdutos.addColumn("Data de entrada");
         modelProdutos.addColumn("Valor");
-        jtblProdutos.setModel(modelProdutos);
-        
+        tbl_estoque.setModel(modelProdutos);
+
         for (String[] c : linhasProdutos) {
             modelProdutos.addRow(c);
         }
-		
-		for(int i = 0; i < linhasProdutos;i++){
-        jtblProdutos.getColumnModel().getColumn(1).setPreferredWidth(100);
+
+        for (int i = 0; i < linhasProdutos.size(); i++) {
+            tbl_estoque.getColumnModel().getColumn(i).setPreferredWidth(100);
         }
-		
+
     }
-	
-	public void limpaInput(){
-		
-	}
 
-    private void desabilitaInput(){
-		txt_produto.setEnabled(false);
-		txt_quatidade.setEnabled(false);
-	    txt_valor.setEnabled(false);
-		txt_valor1;.setEnabled(false);
-	}
-	
-	public void habilitaInput(){
-		
-	}
+    public void limpaInput() {
+        txt_produto.setText("");
+        txt_quatidade.setText("");
+        txt_valor.setText("");
+        jFTdata.setText("");
+        txt_cpf.setText("");
+    }
 
-	/**
+    private void desabilitaInput() {
+        txt_produto.setEnabled(false);
+        txt_quatidade.setEnabled(false);
+        txt_valor.setEnabled(false);
+        jFTdata.setEnabled(false);
+        txt_cpf.setEnabled(false);
+    }
+
+    public void habilitaInput() {
+
+    }
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
@@ -482,7 +521,7 @@ public class carrinhoView extends javax.swing.JFrame {
     private javax.swing.JButton btn_pequisa;
     private javax.swing.JButton btn_remover;
     private javax.swing.JButton jButton1;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JFormattedTextField jFTdata;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -500,11 +539,11 @@ public class carrinhoView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lbl_prosoT;
-    private javax.swing.JTable tbl_carrilho;
+    private javax.swing.JTable tbl_carrinho;
     private javax.swing.JTable tbl_estoque;
+    private javax.swing.JTextField txt_cpf;
     private javax.swing.JTextField txt_produto;
     private javax.swing.JTextField txt_quatidade;
     private javax.swing.JTextField txt_valor;
-    private javax.swing.JTextField txt_valor1;
     // End of variables declaration//GEN-END:variables
 }
