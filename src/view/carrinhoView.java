@@ -20,12 +20,7 @@ public class carrinhoView extends javax.swing.JFrame {
     Statement rst;
 
     public carrinhoView() {
-        try{
-        this.con = DriverManager.getConnection("jdbc:mysql://localhost:3380/test", "root", "");
-        this.rst = (Statement) con.createStatement();}
-        catch(Exception e){
-            
-        }
+        
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -134,7 +129,7 @@ public class carrinhoView extends javax.swing.JFrame {
         jLabel4.setText("Valor Total:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel5.setText("Data de Entrega:");
+        jLabel5.setText("Data da compra:");
 
         lbl_prosoT.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lbl_prosoT.setText("R$:0,00");
@@ -176,7 +171,7 @@ public class carrinhoView extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jFTdata, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                        .addComponent(jFTdata, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(21, 21, 21)
@@ -269,6 +264,7 @@ public class carrinhoView extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbl_estoque.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(tbl_estoque);
 
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -293,6 +289,7 @@ public class carrinhoView extends javax.swing.JFrame {
             }
         });
         tbl_carrinho.setCellSelectionEnabled(true);
+        tbl_carrinho.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tbl_carrinho);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -440,7 +437,7 @@ public class carrinhoView extends javax.swing.JFrame {
     }
 
     public void carregaTabela() {
-        ArrayList<String[]> linhasProdutos = ProdutoController.getProdutos();
+        ArrayList<String[]> linhasProdutos = ProdutoController.consultar();
 
         DefaultTableModel modelProdutos = new DefaultTableModel();
         modelProdutos.addColumn("Código");
