@@ -20,13 +20,27 @@ public class ProdutoController {
         return ProdutoDAO.atualizar(p);
     }
 
-    public static ArrayList<String[]> consultar() {
+    public static ArrayList<String[]> consultarCadastro() {
         ArrayList<ProdutoModel> produtos = ProdutoDAO.carregar();
         ArrayList<String[]> listaProdutos = new ArrayList<>();
 
         for (int i = 0; i < produtos.size(); i++) {
             listaProdutos.add(new String[]{String.valueOf(produtos.get(i).getIdProduto()), produtos.get(i).getNome(),
                 String.valueOf(produtos.get(i).getQuantidade()), produtos.get(i).getData(), String.valueOf(produtos.get(i).getValor())});
+
+        }
+
+        return listaProdutos;
+
+    }
+    
+    public static ArrayList<String[]> consultarEstoque() {
+        ArrayList<ProdutoModel> produtos = ProdutoDAO.carregar();
+        ArrayList<String[]> listaProdutos = new ArrayList<>();
+
+        for (int i = 0; i < produtos.size(); i++) {
+            listaProdutos.add(new String[]{String.valueOf(produtos.get(i).getIdProduto()), produtos.get(i).getNome(),
+                String.valueOf(produtos.get(i).getValor()), produtos.get(i).getData()});
 
         }
 
