@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import java.util.ArrayList;
+import model.ClienteModel;
 import model.ProdutoModel;
 
 public class SimulaDB {
@@ -14,12 +10,14 @@ public class SimulaDB {
     
     //private ArrayList<Cliente> listaClientes; 
     private ArrayList<ProdutoModel> listaProdutos; 
+    private ArrayList<ClienteModel> listaClientes; 
     
     
     private SimulaDB(){
     
-        //listaClientes = new ArrayList<Cliente>();
+        //listaProdutos = new ArrayList<Produtos>();
         listaProdutos = new ArrayList<ProdutoModel>();
+        listaClientes = new ArrayList<ClienteModel>();
     }
     
     public static synchronized SimulaDB getInstance(){
@@ -29,51 +27,8 @@ public class SimulaDB {
         return mockdb;
     }
     
-   /* public boolean SalvarCliente(Cliente c)
-    {
-        listaClientes.add(c);
-        
-        return true;
-    }
     
-    public ArrayList<Cliente> getClientes()
-    {
-        return this.listaClientes;
-    }
-    
-    
-    public boolean AtualizarCliente(Cliente c)
-    {
-        for(Cliente item: listaClientes)
-        {
-            if(item.getId() == c.getId())
-            {
-                item.setNome(c.getNome());
-                item.setCPF(c.getCPF());
-            }
-        }
-            
-        return true;
-    }
-    
-    public boolean ExcluirCliente(int i)
-    {
-        Cliente clienteExcluir = new Cliente();
-        boolean existeNaLista = false;
-        for (Cliente c : listaClientes) {
-        
-            if(c.getId()==i){
-                clienteExcluir = c;
-                existeNaLista = true;
-            }
-        }
-        
-        if(existeNaLista)
-            listaClientes.remove(clienteExcluir);
-        
-        return true;
-    }*/
-    
+    //--------------------------------------------------------------------------
     public boolean SalvarProduto(ProdutoModel p)
     {
         listaProdutos.add(p);
@@ -120,5 +75,60 @@ public class SimulaDB {
         return true;
     }
     
+   
+    //--------------------------------------------------------------------------
+   
+    public boolean SalvarCliente(ClienteModel c)
+    {
+        listaClientes.add(c);
+        return true;
+    }
+    
+    
+    public ArrayList<ClienteModel> getClientes()
+    {
+        return this.listaClientes;
+    }
+    
+    
+    public boolean AtualizarCliente(ClienteModel c)
+    {
+        for(ClienteModel item: listaClientes)
+        {
+            if(item.getIdCliente() == c.getIdCliente())
+            {
+                item.setNome(c.getNome());
+                item.setData(c.getData());
+                item.setCpf(c.getCpf());
+                item.setEmail(c.getEmail());
+                item.setTelefone(c.getTelefone());
+                item.setEndereco(c.getEndereco());
+                item.setComplemeto(c.getComplemeto());
+                item.setBairro(c.getBairro());
+                item.setCidade(c.getCidade());
+                item.setCEP(c.getCEP());
+            }
+        }
+            
+        return true;
+    }
+    
+    public boolean ExcluirCliente(int i)
+    {
+        ClienteModel clienteExcluir = new ClienteModel();
+        boolean existeNaLista = false;
+        for (ClienteModel c : listaClientes) {
+        
+            if(c.getIdCliente()==i){
+                clienteExcluir = c;
+                existeNaLista = true;
+            }
+        }
+        
+        if(existeNaLista)
+            listaClientes.remove(clienteExcluir);
+        
+        return true;
+    }
     
 }
