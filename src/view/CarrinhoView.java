@@ -23,7 +23,13 @@ public class CarrinhoView extends javax.swing.JFrame {
         txt_produto.setEditable(false);
         txt_valor.setEditable(false);
     }
-    
+
+    public void limparcampos() {
+        txt_produto.setText("");
+        txt_quantidade.setText("");
+        txt_valor.setText("");
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -37,7 +43,6 @@ public class CarrinhoView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btn_pequisa = new javax.swing.JButton();
         btn_adisionar = new javax.swing.JButton();
-        btn_auterar = new javax.swing.JButton();
         btn_remover = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -97,40 +102,44 @@ public class CarrinhoView extends javax.swing.JFrame {
         });
 
         btn_adisionar.setText("Adicionar");
-
-        btn_auterar.setText("Alterar");
-        btn_auterar.setMaximumSize(new java.awt.Dimension(80, 25));
-        btn_auterar.setMinimumSize(new java.awt.Dimension(80, 25));
+        btn_adisionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_adisionarActionPerformed(evt);
+            }
+        });
 
         btn_remover.setBackground(new java.awt.Color(255, 0, 0));
         btn_remover.setText("Remover");
+        btn_remover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_removerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(75, 75, 75)
+                .addComponent(btn_pequisa, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_pequisa, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                    .addComponent(btn_auterar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_adisionar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_remover, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addComponent(btn_remover, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_adisionar)
+                .addGap(22, 22, 22))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_pequisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_adisionar))
+                .addComponent(btn_pequisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_auterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_remover))
+                    .addComponent(btn_remover)
+                    .addComponent(btn_adisionar))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -302,17 +311,14 @@ public class CarrinhoView extends javax.swing.JFrame {
 
         tbl_carrinho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "CODIGO", "Produto", "Quantidade", "Valor"
+                "Produto", "Quantidade", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -414,7 +420,7 @@ public class CarrinhoView extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -468,11 +474,36 @@ public class CarrinhoView extends javax.swing.JFrame {
     private void txt_quantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_quantidadeKeyReleased
         if (txt_quantidade.getText().equals("")) {
             txt_valor.setText("R$" + String.valueOf(Float.parseFloat(tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 2).toString()) * 1));
-        }else {
+        } else {
             txt_valor.setText("R$" + String.valueOf(Float.parseFloat(txt_quantidade.getText())
                     * Float.parseFloat(tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 2).toString())));
         }
     }//GEN-LAST:event_txt_quantidadeKeyReleased
+
+    private void btn_adisionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adisionarActionPerformed
+        boolean limpar = true;
+        if (verificaCampos()){
+        DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
+        Object[] dados = {txt_produto.getText(), txt_quantidade.getText(), txt_valor.getText()};
+        dtmPedidos.addRow(dados);
+        limpar = false;
+        }
+        
+        if (limpar == false){
+            limpaInput();
+        }
+        
+    }//GEN-LAST:event_btn_adisionarActionPerformed
+
+    private void btn_removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerActionPerformed
+       if (tbl_carrinho.getSelectedRow() != -1){
+        
+       DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
+       dtmPedidos.removeRow(tbl_carrinho.getSelectedRow());
+       }else {
+           JOptionPane.showMessageDialog(null,"Selecione um item para excluir!");
+       }
+    }//GEN-LAST:event_btn_removerActionPerformed
 
     private boolean verificaCampos() {
         if (this.txt_produto.getText().equals("")) {
@@ -481,6 +512,10 @@ public class CarrinhoView extends javax.swing.JFrame {
         }
         if (this.txt_valor.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite valor para o porduto");
+            return false;
+        }
+        if (this.txt_quantidade.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Digite a quantidade de produtos");
             return false;
         }
         return true;
@@ -493,7 +528,7 @@ public class CarrinhoView extends javax.swing.JFrame {
         modelProdutos.addColumn("Código");
         modelProdutos.addColumn("Nome");
         modelProdutos.addColumn("Valor");
-        modelProdutos.addColumn("Data de entrada");
+        modelProdutos.addColumn("data de entrada");
         tbl_estoque.setModel(modelProdutos);
 
         for (String[] c : linhasProdutos) {
@@ -510,8 +545,7 @@ public class CarrinhoView extends javax.swing.JFrame {
         txt_produto.setText("");
         txt_quantidade.setText("");
         txt_valor.setText("R$");
-        jFTdata.setText("");
-        txt_cpf.setText("");
+
     }
 
     private void desabilitaInput() {
@@ -565,7 +599,6 @@ public class CarrinhoView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_adisionar;
-    private javax.swing.JButton btn_auterar;
     private javax.swing.JButton btn_fimVenda;
     private javax.swing.JButton btn_pequisa;
     private javax.swing.JButton btn_remover;
