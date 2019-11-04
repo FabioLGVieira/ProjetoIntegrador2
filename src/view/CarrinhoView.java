@@ -10,15 +10,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class CarrinhoView extends javax.swing.JFrame {
-    
+
     Connection con;
     Statement rst;
-    
+
     public CarrinhoView() {
-        
+
         initComponents();
         setLocationRelativeTo(null);
         lblEstoque.setVisible(false);
@@ -29,13 +30,13 @@ public class CarrinhoView extends javax.swing.JFrame {
         carregaTabela();
         carregarClientes();
     }
-    
+
     public void limparcampos() {
         txt_produto.setText("");
         txt_quantidade.setText("");
         txt_valor.setText("");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -466,20 +467,36 @@ public class CarrinhoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void btn_fimVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fimVendaActionPerformed
-       ArrayList<String[]> linhasCliente = ClienteController.valida();
-       String[][] teste = new String[linhasCliente.size()][2];
+        
+        boolean verifica = true; 
+        if (verificaCampos2()){
+        ArrayList<String[]> linhasCliente = ClienteController.valida();
+        String[][] teste = new String[linhasCliente.size()][2];
         for (int i = 0; i < linhasCliente.size(); i++) {
             //System.out.println(Arrays.toString(linhasCliente.get(i)));
             teste[i] = Arrays.toString(linhasCliente.get(i)).split(", ");
             for (int j = 0; j < teste[i].length; j++) {
                 teste[i][j] = teste[i][j].replace("[", "").replace("]", "");
             }
-            if(teste[i][0].equals(txt_cpf.getText())){
-                 VendaController.salvar(teste[i][0], teste[i][1], txt_data.getText(), Float.parseFloat(lbl_Total.getText().replace(",", ".")));
-                 break;
+            if (teste[i][0].equals(txt_cpf.getText())) {
+                VendaController.salvar(teste[i][0], teste[i][1], txt_data.getText(), Float.parseFloat(lbl_Total.getText().replace(",", ".")));
+                break;
             }
         }
         linhasCliente.clear();
+        verifica = false;
+        JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!!!");
+        }
+       
+        if(verifica == false){
+           ((DefaultTableModel) tbl_carrinho.getModel()).setRowCount(0);
+            txt_produto.setText("");
+            txt_quantidade.setText("");
+            txt_valor.setText("");
+            txt_data.setText("");
+            txt_cpf.setText("");
+        }
+        
     }//GEN-LAST:event_btn_fimVendaActionPerformed
 
     private void btn_pequisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pequisaActionPerformed
@@ -508,7 +525,7 @@ public class CarrinhoView extends javax.swing.JFrame {
             valor += Float.parseFloat(txt_valor.getText().replace(",", ".").replace("R$", ""));
             lbl_Total.setText(String.valueOf(valor));
         }
-        
+
         if (limpar == false) {
             limpaInput();
         }
@@ -517,7 +534,7 @@ public class CarrinhoView extends javax.swing.JFrame {
 
     private void btn_removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerActionPerformed
         if (tbl_carrinho.getSelectedRow() != -1) {
-            
+
             DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
             dtmPedidos.removeRow(tbl_carrinho.getSelectedRow());
         } else {
@@ -530,13 +547,13 @@ public class CarrinhoView extends javax.swing.JFrame {
             txt_valor.setText("R$" + String.valueOf(Float.parseFloat(tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 2).toString()) * 1));
         } else if (tbl_estoque.getRowCount() < 1) {
             JOptionPane.showMessageDialog(null, "Cadastre um produto!");
-            txt_quantidade.setText("");            
+            txt_quantidade.setText("");
         } else {
             txt_valor.setText("R$" + String.valueOf(Float.parseFloat(txt_quantidade.getText())
                     * Float.parseFloat(tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 2).toString())));
         }
     }//GEN-LAST:event_txt_quantidadeKeyReleased
-    
+
     private boolean verificaCampos() {
         if (this.txt_produto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite o nome do produto");
@@ -552,51 +569,64 @@ public class CarrinhoView extends javax.swing.JFrame {
         }
         return true;
     }
-    
+
+    private boolean verificaCampos2() {
+        if (this.txt_data.getText().equals("  /  /    ")) {
+            JOptionPane.showMessageDialog(null, "Digite a data da compra");
+            return false;
+        }
+        if (this.txt_cpf.getText().equals("   .   .   -  ")) {
+            JOptionPane.showMessageDialog(null, "Digite o CPF do cliente");
+            return false;
+        }
+        
+        return true;
+    }
+
     public ArrayList carregarClientes() {
         ArrayList<String[]> linhasCliente = ClienteController.consultar();
         DefaultTableModel cli = new DefaultTableModel();
         cli.addColumn("CPF");
-        
+
         return linhasCliente;
     }
-    
+
     public void carregaTabela() {
         ArrayList<String[]> linhasProdutos = ProdutoController.consultarEstoque();
-        
+
         DefaultTableModel modelProdutos = new DefaultTableModel();
         modelProdutos.addColumn("Código");
         modelProdutos.addColumn("Nome");
         modelProdutos.addColumn("Valor");
         modelProdutos.addColumn("data de entrada");
         tbl_estoque.setModel(modelProdutos);
-        
+
         for (String[] c : linhasProdutos) {
             modelProdutos.addRow(c);
         }
-        
+
         for (int i = 0; i < modelProdutos.getColumnCount(); i++) {
             tbl_estoque.getColumnModel().getColumn(i).setPreferredWidth(100);
         }
-        
+
     }
-    
+
     public void limpaInput() {
         txt_produto.setText("");
         txt_quantidade.setText("");
         txt_valor.setText("R$");
-        
+
     }
-    
+
     private void desabilitaInput() {
         txt_produto.setEnabled(false);
         txt_quantidade.setEnabled(false);
         txt_data.setEnabled(false);
         //txt_cpf.setEnabled(false);
     }
-    
+
     public void habilitaInput() {
-        
+
     }
 
     /**
