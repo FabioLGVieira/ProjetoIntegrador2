@@ -1,35 +1,41 @@
 package view;
 
+import controller.ClienteController;
 import controller.ProdutoController;
+import controller.VendaController;
 import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class CarrinhoView extends javax.swing.JFrame {
-
+    
     Connection con;
     Statement rst;
-
+    
     public CarrinhoView() {
-
+        
         initComponents();
         setLocationRelativeTo(null);
         lblEstoque.setVisible(false);
         lblCarrinho.setVisible(false);
+        lblNome.setVisible(false);
         txt_produto.setEditable(false);
         txt_valor.setEditable(false);
+        carregaTabela();
+        carregarClientes();
     }
-
+    
     public void limparcampos() {
         txt_produto.setText("");
         txt_quantidade.setText("");
         txt_valor.setText("");
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -38,23 +44,23 @@ public class CarrinhoView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txt_quantidade = new javax.swing.JTextField();
         txt_produto = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btn_pequisa = new javax.swing.JButton();
-        btn_adisionar = new javax.swing.JButton();
+        btn_adicionar = new javax.swing.JButton();
         btn_remover = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        lbl_prosoT = new javax.swing.JLabel();
+        lbl_Total = new javax.swing.JLabel();
         btn_fimVenda = new javax.swing.JButton();
-        jFTdata = new javax.swing.JFormattedTextField();
-        txt_cpf = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        txt_data = new javax.swing.JFormattedTextField();
+        cpf_cliente = new javax.swing.JLabel();
+        txt_cpf = new javax.swing.JFormattedTextField();
         lblEstoque = new javax.swing.JLabel();
         lblCarrinho = new javax.swing.JLabel();
         txt_valor = new javax.swing.JFormattedTextField();
+        txt_quantidade = new javax.swing.JFormattedTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbl_estoque = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -64,6 +70,7 @@ public class CarrinhoView extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        lblNome = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Carrinho");
@@ -84,12 +91,6 @@ public class CarrinhoView extends javax.swing.JFrame {
 
         jLabel3.setText("Valor");
 
-        txt_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_quantidadeKeyReleased(evt);
-            }
-        });
-
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btn_pequisa.setText("Pesquisar");
@@ -101,10 +102,10 @@ public class CarrinhoView extends javax.swing.JFrame {
             }
         });
 
-        btn_adisionar.setText("Adicionar");
-        btn_adisionar.addActionListener(new java.awt.event.ActionListener() {
+        btn_adicionar.setText("Adicionar");
+        btn_adicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_adisionarActionPerformed(evt);
+                btn_adicionarActionPerformed(evt);
             }
         });
 
@@ -128,7 +129,7 @@ public class CarrinhoView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btn_remover, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_adisionar)
+                .addComponent(btn_adicionar)
                 .addGap(22, 22, 22))
         );
         jPanel2Layout.setVerticalGroup(
@@ -139,18 +140,18 @@ public class CarrinhoView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_remover)
-                    .addComponent(btn_adisionar))
+                    .addComponent(btn_adicionar))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel4.setText("Valor Total:");
+        jLabel4.setText("Valor Total: R$");
 
         jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Data da compra:");
 
-        lbl_prosoT.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lbl_prosoT.setText("R$:0,00");
+        lbl_Total.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lbl_Total.setText("0,00");
 
         btn_fimVenda.setText("Finalizar venda");
         btn_fimVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -160,19 +161,19 @@ public class CarrinhoView extends javax.swing.JFrame {
         });
 
         try {
-            jFTdata.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####/##/##")));
+            txt_data.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
 
-        txt_cpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_cpfActionPerformed(evt);
-            }
-        });
+        cpf_cliente.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cpf_cliente.setText("CPF do cliente:");
 
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel10.setText("CPF do cliente:");
+        try {
+            txt_cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -185,14 +186,14 @@ public class CarrinhoView extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_prosoT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lbl_Total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jFTdata, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
+                        .addComponent(txt_data, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(21, 21, 21)
+                        .addComponent(cpf_cliente)
+                        .addGap(18, 18, 18)
                         .addComponent(txt_cpf)))
                 .addContainerGap())
         );
@@ -202,16 +203,16 @@ public class CarrinhoView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbl_prosoT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbl_Total, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jFTdata, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
+                    .addComponent(cpf_cliente)
                     .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(btn_fimVenda)
                 .addGap(12, 12, 12))
         );
@@ -221,6 +222,13 @@ public class CarrinhoView extends javax.swing.JFrame {
         lblCarrinho.setText("lblCarrinho");
 
         txt_valor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("R$#,##0"))));
+
+        txt_quantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        txt_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_quantidadeKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -240,11 +248,11 @@ public class CarrinhoView extends javax.swing.JFrame {
                                     .addComponent(jLabel3))
                                 .addGap(32, 32, 32)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_quantidade)
                                     .addComponent(txt_produto)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(txt_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(txt_quantidade))))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblEstoque)
@@ -259,7 +267,7 @@ public class CarrinhoView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblEstoque)
                     .addComponent(lblCarrinho))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txt_produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -331,7 +339,7 @@ public class CarrinhoView extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo_produto64.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/produto.png"))); // NOI18N
         jLabel6.setText("Novo Produto");
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -363,7 +371,7 @@ public class CarrinhoView extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/novo_cliente64.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cliente.png"))); // NOI18N
         jLabel9.setText("Novo Cliente");
         jLabel9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel9.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -372,6 +380,8 @@ public class CarrinhoView extends javax.swing.JFrame {
                 jLabel9MouseClicked(evt);
             }
         });
+
+        lblNome.setText("lblNome");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -384,6 +394,8 @@ public class CarrinhoView extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
+                .addGap(68, 68, 68)
+                .addComponent(lblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addContainerGap())
@@ -394,6 +406,10 @@ public class CarrinhoView extends javax.swing.JFrame {
             .addComponent(jLabel7)
             .addComponent(jLabel8)
             .addComponent(jLabel9)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNome)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -417,10 +433,10 @@ public class CarrinhoView extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -450,12 +466,21 @@ public class CarrinhoView extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel8MouseClicked
 
     private void btn_fimVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fimVendaActionPerformed
-
+       ArrayList<String[]> linhasCliente = ClienteController.valida();
+       String[][] teste = new String[linhasCliente.size()][2];
+        for (int i = 0; i < linhasCliente.size(); i++) {
+            //System.out.println(Arrays.toString(linhasCliente.get(i)));
+            teste[i] = Arrays.toString(linhasCliente.get(i)).split(", ");
+            for (int j = 0; j < teste[i].length; j++) {
+                teste[i][j] = teste[i][j].replace("[", "").replace("]", "");
+            }
+            if(teste[i][0].equals(txt_cpf.getText())){
+                 VendaController.salvar(teste[i][0], teste[i][1], txt_data.getText(), Float.parseFloat(lbl_Total.getText().replace(",", ".")));
+                 break;
+            }
+        }
+        linhasCliente.clear();
     }//GEN-LAST:event_btn_fimVendaActionPerformed
-
-    private void txt_cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cpfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_cpfActionPerformed
 
     private void btn_pequisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pequisaActionPerformed
         //rst.exe;
@@ -463,6 +488,7 @@ public class CarrinhoView extends javax.swing.JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         carregaTabela();
+        carregarClientes();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void tbl_estoqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_estoqueMouseClicked
@@ -471,40 +497,46 @@ public class CarrinhoView extends javax.swing.JFrame {
         txt_valor.setText("R$" + tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tbl_estoqueMouseClicked
 
+    private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
+        boolean limpar = true;
+        float valor = Float.parseFloat(lbl_Total.getText().replace(",", ""));
+        if (verificaCampos()) {
+            DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
+            Object[] dados = {txt_produto.getText(), txt_quantidade.getText(), txt_valor.getText()};
+            dtmPedidos.addRow(dados);
+            limpar = false;
+            valor += Float.parseFloat(txt_valor.getText().replace(",", ".").replace("R$", ""));
+            lbl_Total.setText(String.valueOf(valor));
+        }
+        
+        if (limpar == false) {
+            limpaInput();
+        }
+
+    }//GEN-LAST:event_btn_adicionarActionPerformed
+
+    private void btn_removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerActionPerformed
+        if (tbl_carrinho.getSelectedRow() != -1) {
+            
+            DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
+            dtmPedidos.removeRow(tbl_carrinho.getSelectedRow());
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione um item para excluir!");
+        }
+    }//GEN-LAST:event_btn_removerActionPerformed
+
     private void txt_quantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_quantidadeKeyReleased
         if (txt_quantidade.getText().equals("")) {
             txt_valor.setText("R$" + String.valueOf(Float.parseFloat(tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 2).toString()) * 1));
+        } else if (tbl_estoque.getRowCount() < 1) {
+            JOptionPane.showMessageDialog(null, "Cadastre um produto!");
+            txt_quantidade.setText("");            
         } else {
             txt_valor.setText("R$" + String.valueOf(Float.parseFloat(txt_quantidade.getText())
                     * Float.parseFloat(tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 2).toString())));
         }
     }//GEN-LAST:event_txt_quantidadeKeyReleased
-
-    private void btn_adisionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adisionarActionPerformed
-        boolean limpar = true;
-        if (verificaCampos()){
-        DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
-        Object[] dados = {txt_produto.getText(), txt_quantidade.getText(), txt_valor.getText()};
-        dtmPedidos.addRow(dados);
-        limpar = false;
-        }
-        
-        if (limpar == false){
-            limpaInput();
-        }
-        
-    }//GEN-LAST:event_btn_adisionarActionPerformed
-
-    private void btn_removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerActionPerformed
-       if (tbl_carrinho.getSelectedRow() != -1){
-        
-       DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
-       dtmPedidos.removeRow(tbl_carrinho.getSelectedRow());
-       }else {
-           JOptionPane.showMessageDialog(null,"Selecione um item para excluir!");
-       }
-    }//GEN-LAST:event_btn_removerActionPerformed
-
+    
     private boolean verificaCampos() {
         if (this.txt_produto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite o nome do produto");
@@ -514,49 +546,57 @@ public class CarrinhoView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Digite valor para o porduto");
             return false;
         }
-        if (this.txt_quantidade.getText().equals("")){
+        if (this.txt_quantidade.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Digite a quantidade de produtos");
             return false;
         }
         return true;
     }
-
+    
+    public ArrayList carregarClientes() {
+        ArrayList<String[]> linhasCliente = ClienteController.consultar();
+        DefaultTableModel cli = new DefaultTableModel();
+        cli.addColumn("CPF");
+        
+        return linhasCliente;
+    }
+    
     public void carregaTabela() {
         ArrayList<String[]> linhasProdutos = ProdutoController.consultarEstoque();
-
+        
         DefaultTableModel modelProdutos = new DefaultTableModel();
         modelProdutos.addColumn("Código");
         modelProdutos.addColumn("Nome");
         modelProdutos.addColumn("Valor");
         modelProdutos.addColumn("data de entrada");
         tbl_estoque.setModel(modelProdutos);
-
+        
         for (String[] c : linhasProdutos) {
             modelProdutos.addRow(c);
         }
-
+        
         for (int i = 0; i < modelProdutos.getColumnCount(); i++) {
             tbl_estoque.getColumnModel().getColumn(i).setPreferredWidth(100);
         }
-
+        
     }
-
+    
     public void limpaInput() {
         txt_produto.setText("");
         txt_quantidade.setText("");
         txt_valor.setText("R$");
-
+        
     }
-
+    
     private void desabilitaInput() {
         txt_produto.setEnabled(false);
         txt_quantidade.setEnabled(false);
-        jFTdata.setEnabled(false);
-        txt_cpf.setEnabled(false);
+        txt_data.setEnabled(false);
+        //txt_cpf.setEnabled(false);
     }
-
+    
     public void habilitaInput() {
-
+        
     }
 
     /**
@@ -598,13 +638,12 @@ public class CarrinhoView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_adisionar;
+    private javax.swing.JButton btn_adicionar;
     private javax.swing.JButton btn_fimVenda;
     private javax.swing.JButton btn_pequisa;
     private javax.swing.JButton btn_remover;
-    private javax.swing.JFormattedTextField jFTdata;
+    private javax.swing.JLabel cpf_cliente;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -621,12 +660,14 @@ public class CarrinhoView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCarrinho;
     private javax.swing.JLabel lblEstoque;
-    private javax.swing.JLabel lbl_prosoT;
+    private javax.swing.JLabel lblNome;
+    private javax.swing.JLabel lbl_Total;
     private javax.swing.JTable tbl_carrinho;
     private javax.swing.JTable tbl_estoque;
-    private javax.swing.JTextField txt_cpf;
+    private javax.swing.JFormattedTextField txt_cpf;
+    private javax.swing.JFormattedTextField txt_data;
     private javax.swing.JTextField txt_produto;
-    private javax.swing.JTextField txt_quantidade;
+    private javax.swing.JFormattedTextField txt_quantidade;
     private javax.swing.JFormattedTextField txt_valor;
     // End of variables declaration//GEN-END:variables
 }

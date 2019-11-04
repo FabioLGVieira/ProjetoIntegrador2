@@ -37,4 +37,16 @@ public class ClienteController {
 
     }
     
+     public static ArrayList<String[]> valida() {
+        ArrayList<ClienteModel> Clientes = ClienteDAO.carregar();
+        ArrayList<String[]> listaClientes = new ArrayList<>();
+
+        for (int i = 0; i < Clientes.size(); i++) {
+            listaClientes.add(new String[]{Clientes.get(i).getCpf(),Clientes.get(i).getNome()});
+        }
+
+        return listaClientes;
+
+    }
+    
 }

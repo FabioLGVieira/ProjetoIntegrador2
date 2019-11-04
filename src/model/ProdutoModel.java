@@ -14,6 +14,7 @@ public class ProdutoModel {
     
     public ProdutoModel(String nome,int qtd, String data, float valor) {
         qtdProd++;
+        this.idProduto = qtdProd;
         this.nome = nome;
         this.data = data;
         this.quantidade = qtd;

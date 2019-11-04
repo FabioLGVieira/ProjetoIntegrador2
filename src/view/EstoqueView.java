@@ -368,7 +368,7 @@ public class EstoqueView extends javax.swing.JFrame {
     private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
         if (validarCampos()) {
             //adiciona na tabela
-
+            //ProdutoController.salvar("adasdasd", 333, "15/03/1521", 111);
             ProdutoController.salvar(txt_produto.getText(), Integer.parseInt(txt_quantidade.getText().replace(",", "")), txt_data.getText(), Float.parseFloat(txt_valor.getText().replace(",", "")));
             carregarTabela();
             limparCampos();

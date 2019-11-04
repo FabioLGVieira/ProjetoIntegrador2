@@ -20,6 +20,7 @@ public class ClienteModel {
 
     public ClienteModel(String nome, String data, String CPF, String Email, String Telefone, String endereco, String complemeto, String bairro, String cidade, String CEP) {
         qtdCli++;
+        this.idCliente = qtdCli;
         this.nome = nome;
         this.data = data;
         this.cpf = CPF;

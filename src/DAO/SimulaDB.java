@@ -3,6 +3,7 @@ package DAO;
 import java.util.ArrayList;
 import model.ClienteModel;
 import model.ProdutoModel;
+import model.VendaModel;
 
 public class SimulaDB {
     
@@ -11,15 +12,17 @@ public class SimulaDB {
     //private ArrayList<Cliente> listaClientes; 
     private ArrayList<ProdutoModel> listaProdutos; 
     private ArrayList<ClienteModel> listaClientes; 
-    
+    private ArrayList<VendaModel> listaVenda;
     
     private SimulaDB(){
     
         //listaProdutos = new ArrayList<Produtos>();
         listaProdutos = new ArrayList<ProdutoModel>();
         listaClientes = new ArrayList<ClienteModel>();
+        listaVenda = new ArrayList<VendaModel>();
     }
     
+     //--------------------------------------------------------------------------
     public static synchronized SimulaDB getInstance(){
         if(mockdb == null)
             mockdb = new SimulaDB();
@@ -27,6 +30,17 @@ public class SimulaDB {
         return mockdb;
     }
     
+    
+     public boolean SalvarVenda(VendaModel v)
+    {
+        listaVenda.add(v);
+        return true;
+    }
+    
+    public ArrayList<VendaModel> getVenda()
+    {
+        return this.listaVenda;
+    }
     
     //--------------------------------------------------------------------------
     public boolean SalvarProduto(ProdutoModel p)

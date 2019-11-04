@@ -504,15 +504,15 @@ public class From_Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_alterarActionPerformed
 
     private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
-
+ //ClienteController.salvar("adasda", "11/11/1111", "111.111.111-11", "", "(11)11 11111-1111", "asdasd", "2321", "asdad", "adasdas", "dasdasdas");
         boolean limpar = true;
         if (validarCampos()) {
             //adiciona na tabela
-
+           
             ClienteController.salvar(txt_nome.getText(), txt_data.getText(), txt_cpf.getText(), txt_email.getText(), txt_telefone.getText(), txt_enderoco.getText(), txt_complemeto.getText(), txt_bairro.getText(), txt_cidade.getText(), txt_CEP.getText());
             carregarTabela();
             limpar = false;
-        }
+       }
 
         if (limpar == false) {
             Limparcampos();

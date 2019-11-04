@@ -1,9 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
+
+import controller.VendaController;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -11,12 +11,31 @@ package view;
  */
 public class RelatoriosView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Relatorio
-     */
     public RelatoriosView() {
         initComponents();
         setLocationRelativeTo(null);
+        carregaTabela();
+    }
+    
+     public void carregaTabela() {
+        ArrayList<String[]> linhasProdutos = VendaController.consultarVenda();
+
+        DefaultTableModel modelProdutos = new DefaultTableModel();
+        modelProdutos.addColumn("Código Venda");
+        modelProdutos.addColumn("Nome");
+        modelProdutos.addColumn("CPF");
+        modelProdutos.addColumn("Data");
+        modelProdutos.addColumn("Total");
+        tbl_relatorio.setModel(modelProdutos);
+
+        for (String[] c : linhasProdutos) {
+            modelProdutos.addRow(c);
+        }
+
+        for (int i = 0; i < modelProdutos.getColumnCount(); i++) {
+            tbl_relatorio.getColumnModel().getColumn(i).setPreferredWidth(100);
+        }
+
     }
 
     /**
@@ -31,7 +50,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         Mes1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbl_relatorio = new javax.swing.JTable();
         Mes2 = new javax.swing.JPanel();
         Mes3 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
@@ -47,7 +66,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_relatorio.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -58,7 +77,7 @@ public class RelatoriosView extends javax.swing.JFrame {
                 "Código Venda", "Data", "Cliente", "CPF", "Valor Total"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbl_relatorio);
 
         javax.swing.GroupLayout Mes1Layout = new javax.swing.GroupLayout(Mes1);
         Mes1.setLayout(Mes1Layout);
@@ -167,14 +186,13 @@ public class RelatoriosView extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_pesquisa11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel18)
-                            .addComponent(btn_pesquisa9))
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txt_pesquisa10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel17)))
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_pesquisa11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel18)
+                        .addComponent(btn_pesquisa9))
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_pesquisa10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel17))
                     .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txt_pesquisa9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cmb_prequisa9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,7 +287,7 @@ public class RelatoriosView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbl_relatorio;
     private javax.swing.JTextField txt_pesquisa10;
     private javax.swing.JTextField txt_pesquisa11;
     private javax.swing.JTextField txt_pesquisa9;
