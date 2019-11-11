@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/netbeans-workspace/ProjetoIntegrador2/src/DAO/SimulaDB.java</file>
-            <file>file:/F:/netbeans-workspace/ProjetoIntegrador2/src/controller/ClienteController.java</file>
-            <file>file:/F:/netbeans-workspace/ProjetoIntegrador2/src/view/From_Cliente.java</file>
-            <file>file:/F:/netbeans-workspace/ProjetoIntegrador2/src/controller/VendaController.java</file>
-            <file>file:/F:/netbeans-workspace/ProjetoIntegrador2/src/view/RelatoriosView.java</file>
-            <file>file:/F:/netbeans-workspace/ProjetoIntegrador2/src/model/ClienteModel.java</file>
-            <file>file:/F:/netbeans-workspace/ProjetoIntegrador2/src/view/CarrinhoView.java</file>
-            <file>file:/F:/netbeans-workspace/ProjetoIntegrador2/src/view/EstoqueView.java</file>
-            <file>file:/F:/netbeans-workspace/ProjetoIntegrador2/src/model/VendaModel.java</file>
+            <file>file:/C:/Users/fabio.lgvieira/Desktop/ProjetoIntegrador2/src/DAO/ConnectionDB.java</file>
+            <file>file:/C:/Users/fabio.lgvieira/Desktop/ProjetoIntegrador2/src/view/CarrinhoView.java</file>
+            <file>file:/C:/Users/fabio.lgvieira/Desktop/ProjetoIntegrador2/src/view/From_Cliente.java</file>
+            <file>file:/C:/Users/fabio.lgvieira/Desktop/ProjetoIntegrador2/src/DAO/VendaDAO.java</file>
         </group>
     </open-files>
 </project-private>
