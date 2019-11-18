@@ -1,12 +1,12 @@
 package controller;
 
-import DAO.VendaDAO;
+import DAO.LojaDAO;
 import java.util.ArrayList;
 import model.ClienteModel;
 import model.VendaModel;
 
 public class VendaController {
-
+}/*
     public static boolean salvar(String cpf, String pNome, String pData, float pValor) {
         VendaModel v = new VendaModel(cpf, pNome, pData, pValor);
         return VendaDAO.salvar(v);
@@ -26,3 +26,4 @@ public class VendaController {
 
     }
 }
+*/

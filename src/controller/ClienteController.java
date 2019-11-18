@@ -1,13 +1,13 @@
 package controller;
 
-import DAO.ClienteDAO;
-import DAO.ProdutoDAO;
+import DAO.LojaDAO;
 import java.util.ArrayList;
 import model.ClienteModel;
+import model.ProdutoModel;
 
 
 public class ClienteController {
-    
+    /*
     public static boolean salvar(String cNome, String cData, String cCPF, String cEmail, String cTelefone, String cEndereco, String cComplemento,String cBairro, String cCidade, String cCEP) {
         ClienteModel c = new ClienteModel (cNome,cData,cCPF,cEmail,cTelefone,cEndereco,cComplemento,cBairro,cCidade,cCEP);
         return ClienteDAO.salvar(c);
@@ -34,9 +34,9 @@ public class ClienteController {
         }
 
         return listaClientes;
-
+*/
     }
-    
+ /*   
      public static ArrayList<String[]> valida() {
         ArrayList<ClienteModel> Clientes = ClienteDAO.carregar();
         ArrayList<String[]> listaClientes = new ArrayList<>();
@@ -47,6 +47,5 @@ public class ClienteController {
 
         return listaClientes;
 
-    }
-    
-}
+    }*/
+//}

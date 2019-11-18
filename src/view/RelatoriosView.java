@@ -1,6 +1,7 @@
 
 package view;
 
+import controller.ProdutoController;
 import controller.VendaController;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -18,7 +19,7 @@ public class RelatoriosView extends javax.swing.JFrame {
     }
     
      public void carregaTabela() {
-        ArrayList<String[]> linhasProdutos = VendaController.consultarVenda();
+        ArrayList<String[]> linhasProdutos = ProdutoController.consultarCadastro();
 
         DefaultTableModel modelProdutos = new DefaultTableModel();
         modelProdutos.addColumn("Código Venda");

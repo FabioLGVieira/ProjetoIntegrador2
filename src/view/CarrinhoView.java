@@ -470,7 +470,7 @@ public class CarrinhoView extends javax.swing.JFrame {
         
         boolean verifica = true; 
         if (verificaCampos2()){
-        ArrayList<String[]> linhasCliente = ClienteController.valida();
+     /*   ArrayList<String[]> linhasCliente = ClienteController.valida();
         String[][] teste = new String[linhasCliente.size()][2];
         for (int i = 0; i < linhasCliente.size(); i++) {
             //System.out.println(Arrays.toString(linhasCliente.get(i)));
@@ -483,7 +483,7 @@ public class CarrinhoView extends javax.swing.JFrame {
                 break;
             }
         }
-        linhasCliente.clear();
+        linhasCliente.clear();*/
         verifica = false;
         JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!!!");
         }
@@ -584,7 +584,7 @@ public class CarrinhoView extends javax.swing.JFrame {
     }
 
     public ArrayList carregarClientes() {
-        ArrayList<String[]> linhasCliente = ClienteController.consultar();
+        ArrayList<String[]> linhasCliente = ProdutoController.consultarEstoque();
         DefaultTableModel cli = new DefaultTableModel();
         cli.addColumn("CPF");
 
@@ -592,7 +592,7 @@ public class CarrinhoView extends javax.swing.JFrame {
     }
 
     public void carregaTabela() {
-        ArrayList<String[]> linhasProdutos = ProdutoController.consultarEstoque();
+     /*   ArrayList<String[]> linhasProdutos = ProdutoController.consultarEstoque();
 
         DefaultTableModel modelProdutos = new DefaultTableModel();
         modelProdutos.addColumn("Código");
@@ -608,7 +608,7 @@ public class CarrinhoView extends javax.swing.JFrame {
         for (int i = 0; i < modelProdutos.getColumnCount(); i++) {
             tbl_estoque.getColumnModel().getColumn(i).setPreferredWidth(100);
         }
-
+*/
     }
 
     public void limpaInput() {

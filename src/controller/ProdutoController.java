@@ -1,6 +1,6 @@
 package controller;
 
-import DAO.ProdutoDAO;
+import DAO.LojaDAO;
 import java.util.ArrayList;
 import model.ProdutoModel;
 
@@ -8,20 +8,20 @@ public class ProdutoController {
 
    public static boolean salvar(String pNome, int pQTD, String pData, float pValor) {
         ProdutoModel p = new ProdutoModel(pNome,pQTD,pData,pValor);
-        return ProdutoDAO.salvar(p);
+        return LojaDAO.salvarProduto(p);
     }
 
     public static boolean excluir(int pID) {
-        return ProdutoDAO.excluir(pID);
+        return LojaDAO.excluirProduto(pID);
     }
 
     public static boolean atualizar(int pId, String pNome, int pQTD, String pData, float pValor) {
         ProdutoModel p = new ProdutoModel(pId, pNome, pQTD, pData, pValor);
-        return ProdutoDAO.atualizar(p);
+        return LojaDAO.atualizarProduto(p);
     }
 
     public static ArrayList<String[]> consultarCadastro() {
-        ArrayList<ProdutoModel> produtos = ProdutoDAO.carregar();
+        ArrayList<ProdutoModel> produtos = LojaDAO.consultarEstoque();
         ArrayList<String[]> listaProdutos = new ArrayList<>();
 
         for (int i = 0; i < produtos.size(); i++) {
@@ -35,7 +35,7 @@ public class ProdutoController {
     }
     
     public static ArrayList<String[]> consultarEstoque() {
-        ArrayList<ProdutoModel> produtos = ProdutoDAO.carregar();
+        ArrayList<ProdutoModel> produtos = LojaDAO.consultarEstoque();
         ArrayList<String[]> listaProdutos = new ArrayList<>();
 
         for (int i = 0; i < produtos.size(); i++) {

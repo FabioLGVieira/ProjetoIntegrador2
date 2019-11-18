@@ -1,7 +1,8 @@
 package view;
 
 import controller.ClienteController;
-import DAO.ClienteDAO;
+import DAO.LojaDAO;
+import controller.ProdutoController;
 import model.ClienteModel;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -19,7 +20,7 @@ public class From_Cliente extends javax.swing.JFrame {
     }
 
     public void carregarTabela() {
-        ArrayList<String[]> linhasClientes = ClienteController.consultar();
+        ArrayList<String[]> linhasClientes = ProdutoController.consultarCadastro();
 
         DefaultTableModel modelClientes = new DefaultTableModel();
         modelClientes.addColumn("ID");
@@ -473,7 +474,7 @@ public class From_Cliente extends javax.swing.JFrame {
         if (tbl_cliente.getRowCount() > 0) {
             if (tbl_cliente.getSelectedRow() >= 0) {
 
-                ClienteController.excluir(Integer.parseInt(idLabel.getText()));
+                //ClienteController.excluir(Integer.parseInt(idLabel.getText()));
                 carregarTabela();
             }
         } else {
@@ -489,7 +490,7 @@ public class From_Cliente extends javax.swing.JFrame {
         //habilitarCampos();
         boolean limpar = true;
         if (validarCampos()) {
-            ClienteController.atualizar(Integer.parseInt(idLabel.getText()), txt_nome.getText(), txt_data.getText(), txt_cpf.getText(), txt_email.getText(), txt_telefone.getText(), txt_enderoco.getText(), txt_complemeto.getText(), txt_bairro.getText(), txt_cidade.getText(), txt_CEP.getText());
+            //ClienteController.atualizar(Integer.parseInt(idLabel.getText()), txt_nome.getText(), txt_data.getText(), txt_cpf.getText(), txt_email.getText(), txt_telefone.getText(), txt_enderoco.getText(), txt_complemeto.getText(), txt_bairro.getText(), txt_cidade.getText(), txt_CEP.getText());
             carregarTabela(); // posível erro
             limpar = false;
         } else {
@@ -509,7 +510,7 @@ public class From_Cliente extends javax.swing.JFrame {
         if (validarCampos()) {
             //adiciona na tabela
            
-            ClienteController.salvar(txt_nome.getText(), txt_data.getText(), txt_cpf.getText(), txt_email.getText(), txt_telefone.getText(), txt_enderoco.getText(), txt_complemeto.getText(), txt_bairro.getText(), txt_cidade.getText(), txt_CEP.getText());
+            //ClienteController.salvar(txt_nome.getText(), txt_data.getText(), txt_cpf.getText(), txt_email.getText(), txt_telefone.getText(), txt_enderoco.getText(), txt_complemeto.getText(), txt_bairro.getText(), txt_cidade.getText(), txt_CEP.getText());
             carregarTabela();
             limpar = false;
        }
