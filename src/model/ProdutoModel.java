@@ -12,6 +12,11 @@ public class ProdutoModel {
     public ProdutoModel() {
     }
     
+    public ProdutoModel(int idProd, int QTD){
+        this.idProduto = idProd;
+        this.quantidade = QTD;
+    }
+    
     public ProdutoModel(String nome,int qtd, String data, float valor) {
         qtdProd++;
         this.idProduto = qtdProd;

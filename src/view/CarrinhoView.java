@@ -323,18 +323,18 @@ public class CarrinhoView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Produto", "Quantidade", "Valor"
+                "Código", "Produto", "Quantidade", "Valor"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                true, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbl_carrinho.setCellSelectionEnabled(true);
+        tbl_carrinho.setColumnSelectionAllowed(false);
         tbl_carrinho.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tbl_carrinho);
 
@@ -500,7 +500,7 @@ public class CarrinhoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_fimVendaActionPerformed
 
     private void btn_pequisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pequisaActionPerformed
-        //rst.exe;
+        
     }//GEN-LAST:event_btn_pequisaActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -519,11 +519,14 @@ public class CarrinhoView extends javax.swing.JFrame {
         float valor = Float.parseFloat(lbl_Total.getText().replace(",", ""));
         if (verificaCampos()) {
             DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
-            Object[] dados = {txt_produto.getText(), txt_quantidade.getText(), txt_valor.getText()};
+            Object[] dados = {tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 0), txt_produto.getText(), txt_quantidade.getText(), txt_valor.getText()};
             dtmPedidos.addRow(dados);
             limpar = false;
             valor += Float.parseFloat(txt_valor.getText().replace(",", ".").replace("R$", ""));
             lbl_Total.setText(String.valueOf(valor));
+            ProdutoController.removerQuantidade(Integer.parseInt(tbl_estoque.getModel().getValueAt(
+                    tbl_estoque.getSelectedRow(), 0).toString()), Integer.parseInt(txt_quantidade.getText()));
+            carregaTabela();
         }
 
         if (limpar == false) {
@@ -536,15 +539,20 @@ public class CarrinhoView extends javax.swing.JFrame {
         if (tbl_carrinho.getSelectedRow() != -1) {
 
             DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
+            ProdutoController.aumentarQuantidade(
+                    Integer.parseInt(tbl_carrinho.getModel().getValueAt(tbl_carrinho.getSelectedRow(), 0).toString()), 
+                    Integer.parseInt(tbl_carrinho.getModel().getValueAt(tbl_carrinho.getSelectedRow(), 2).toString()));
             dtmPedidos.removeRow(tbl_carrinho.getSelectedRow());
+            carregaTabela();
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um item para excluir!");
         }
     }//GEN-LAST:event_btn_removerActionPerformed
 
     private void txt_quantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_quantidadeKeyReleased
-        if (txt_quantidade.getText().equals("")) {
-            txt_valor.setText("R$" + String.valueOf(Float.parseFloat(tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 2).toString()) * 1));
+        if (txt_quantidade.getText().isEmpty()) {
+            txt_valor.setText("R$" + String.valueOf(Float.parseFloat(tbl_estoque.getModel()
+                    .getValueAt(tbl_estoque.getSelectedRow(), 2).toString()) * 1));
         } else if (tbl_estoque.getRowCount() < 1) {
             JOptionPane.showMessageDialog(null, "Cadastre um produto!");
             txt_quantidade.setText("");
@@ -592,13 +600,13 @@ public class CarrinhoView extends javax.swing.JFrame {
     }
 
     public void carregaTabela() {
-     /*   ArrayList<String[]> linhasProdutos = ProdutoController.consultarEstoque();
+        ArrayList<String[]> linhasProdutos = ProdutoController.consultarEstoque();
 
         DefaultTableModel modelProdutos = new DefaultTableModel();
         modelProdutos.addColumn("Código");
         modelProdutos.addColumn("Nome");
         modelProdutos.addColumn("Valor");
-        modelProdutos.addColumn("data de entrada");
+        modelProdutos.addColumn("Quantidade");
         tbl_estoque.setModel(modelProdutos);
 
         for (String[] c : linhasProdutos) {
@@ -608,7 +616,7 @@ public class CarrinhoView extends javax.swing.JFrame {
         for (int i = 0; i < modelProdutos.getColumnCount(); i++) {
             tbl_estoque.getColumnModel().getColumn(i).setPreferredWidth(100);
         }
-*/
+
     }
 
     public void limpaInput() {

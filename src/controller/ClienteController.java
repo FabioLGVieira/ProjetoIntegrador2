@@ -3,27 +3,26 @@ package controller;
 import DAO.LojaDAO;
 import java.util.ArrayList;
 import model.ClienteModel;
-import model.ProdutoModel;
 
 
 public class ClienteController {
-    /*
+    
     public static boolean salvar(String cNome, String cData, String cCPF, String cEmail, String cTelefone, String cEndereco, String cComplemento,String cBairro, String cCidade, String cCEP) {
         ClienteModel c = new ClienteModel (cNome,cData,cCPF,cEmail,cTelefone,cEndereco,cComplemento,cBairro,cCidade,cCEP);
-        return ClienteDAO.salvar(c);
+        return LojaDAO.salvarCliente(c);
     }
 
     public static boolean excluir(int cID) {
-        return ClienteDAO.excluir(cID);
+        return LojaDAO.excluirCliente(cID);
     }
 
     public static boolean atualizar(int cID, String cNome, String cData, String cCPF, String cEmail, String cTelefone, String cEndereco, String cComplemento,String cBairro, String cCidade, String cCEP) {
         ClienteModel c = new ClienteModel(cID,cNome,cData,cCPF,cEmail,cTelefone,cEndereco,cComplemento,cBairro,cCidade,cCEP);
-        return ClienteDAO.atualizar(c);
+        return LojaDAO.atualizarCliente(c);
     }
     
     public static ArrayList<String[]> consultar() {
-        ArrayList<ClienteModel> Clientes = ClienteDAO.carregar();
+        ArrayList<ClienteModel> Clientes = LojaDAO.consultarCliente();
         ArrayList<String[]> listaClientes = new ArrayList<>();
 
         for (int i = 0; i < Clientes.size(); i++) {
@@ -34,11 +33,10 @@ public class ClienteController {
         }
 
         return listaClientes;
-*/
     }
- /*   
+   
      public static ArrayList<String[]> valida() {
-        ArrayList<ClienteModel> Clientes = ClienteDAO.carregar();
+        ArrayList<ClienteModel> Clientes = LojaDAO.consultarCliente();
         ArrayList<String[]> listaClientes = new ArrayList<>();
 
         for (int i = 0; i < Clientes.size(); i++) {
@@ -47,5 +45,5 @@ public class ClienteController {
 
         return listaClientes;
 
-    }*/
-//}
+    }
+}

@@ -2,7 +2,6 @@ package view;
 
 import controller.ClienteController;
 import DAO.LojaDAO;
-import controller.ProdutoController;
 import model.ClienteModel;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -20,7 +19,7 @@ public class From_Cliente extends javax.swing.JFrame {
     }
 
     public void carregarTabela() {
-        ArrayList<String[]> linhasClientes = ProdutoController.consultarCadastro();
+        ArrayList<String[]> linhasClientes = ClienteController.consultar();
 
         DefaultTableModel modelClientes = new DefaultTableModel();
         modelClientes.addColumn("ID");
@@ -33,7 +32,6 @@ public class From_Cliente extends javax.swing.JFrame {
         modelClientes.addColumn("Complemento");
         modelClientes.addColumn("Bairro");
         modelClientes.addColumn("Cidade");
-        //modelClientes.addColumn("UF");
         modelClientes.addColumn("CEP");
 
         tbl_cliente.setModel(modelClientes);
@@ -121,11 +119,10 @@ public class From_Cliente extends javax.swing.JFrame {
         jLabel5.setText("*Celular");
 
         try {
-            txt_telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)## #####-####")));
+            txt_telefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txt_telefone.setText("(  )       -   ");
 
         try {
             txt_data.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -474,7 +471,7 @@ public class From_Cliente extends javax.swing.JFrame {
         if (tbl_cliente.getRowCount() > 0) {
             if (tbl_cliente.getSelectedRow() >= 0) {
 
-                //ClienteController.excluir(Integer.parseInt(idLabel.getText()));
+                ClienteController.excluir(Integer.parseInt(idLabel.getText()));
                 carregarTabela();
             }
         } else {
@@ -490,7 +487,7 @@ public class From_Cliente extends javax.swing.JFrame {
         //habilitarCampos();
         boolean limpar = true;
         if (validarCampos()) {
-            //ClienteController.atualizar(Integer.parseInt(idLabel.getText()), txt_nome.getText(), txt_data.getText(), txt_cpf.getText(), txt_email.getText(), txt_telefone.getText(), txt_enderoco.getText(), txt_complemeto.getText(), txt_bairro.getText(), txt_cidade.getText(), txt_CEP.getText());
+            ClienteController.atualizar(Integer.parseInt(idLabel.getText()), txt_nome.getText(), txt_data.getText(), txt_cpf.getText(), txt_email.getText(), txt_telefone.getText(), txt_enderoco.getText(), txt_complemeto.getText(), txt_bairro.getText(), txt_cidade.getText(), txt_CEP.getText());
             carregarTabela(); // posível erro
             limpar = false;
         } else {
@@ -500,8 +497,6 @@ public class From_Cliente extends javax.swing.JFrame {
         if (limpar == false){
             Limparcampos();
         }
-
-
     }//GEN-LAST:event_btn_alterarActionPerformed
 
     private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
@@ -509,8 +504,8 @@ public class From_Cliente extends javax.swing.JFrame {
         boolean limpar = true;
         if (validarCampos()) {
             //adiciona na tabela
-           
-            //ClienteController.salvar(txt_nome.getText(), txt_data.getText(), txt_cpf.getText(), txt_email.getText(), txt_telefone.getText(), txt_enderoco.getText(), txt_complemeto.getText(), txt_bairro.getText(), txt_cidade.getText(), txt_CEP.getText());
+            
+            ClienteController.salvar(txt_nome.getText(), txt_data.getText(), txt_cpf.getText(), txt_email.getText(), txt_telefone.getText(), txt_enderoco.getText(), txt_complemeto.getText(), txt_bairro.getText(), txt_cidade.getText(), txt_CEP.getText());
             carregarTabela();
             limpar = false;
        }
