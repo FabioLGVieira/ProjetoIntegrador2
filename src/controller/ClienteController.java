@@ -28,22 +28,39 @@ public class ClienteController {
         for (int i = 0; i < Clientes.size(); i++) {
             listaClientes.add(new String[]{String.valueOf(Clientes.get(i).getIdCliente()), Clientes.get(i).getNome(), Clientes.get(i).getData(), 
                 Clientes.get(i).getCpf(), Clientes.get(i).getEmail(), String.valueOf(Clientes.get(i).getTelefone()), Clientes.get(i).getEndereco(), 
+                Clientes.get(i).getComplemeto(), Clientes.get(i).getBairro(), Clientes.get(i).getCidade(), Clientes.get(i).getCEP(),
+            String.valueOf(Clientes.get(i).isAtivo())});
+
+        }
+
+        return listaClientes;
+    }
+     
+     public static ArrayList<String[]> consultarPorNome(String cNome) {
+        ArrayList<ClienteModel> Clientes = LojaDAO.consultarNome(cNome);
+        ArrayList<String[]> listaClientes = new ArrayList<>();
+
+        for (int i = 0; i < Clientes.size(); i++) {
+            listaClientes.add(new String[]{String.valueOf(Clientes.get(i).getIdCliente()), Clientes.get(i).getNome(), Clientes.get(i).getData(), 
+                Clientes.get(i).getCpf(), Clientes.get(i).getEmail(), String.valueOf(Clientes.get(i).getTelefone()), Clientes.get(i).getEndereco(), 
                 Clientes.get(i).getComplemeto(), Clientes.get(i).getBairro(), Clientes.get(i).getCidade(), Clientes.get(i).getCEP()});
 
         }
 
         return listaClientes;
     }
-   
-     public static ArrayList<String[]> valida() {
-        ArrayList<ClienteModel> Clientes = LojaDAO.consultarCliente();
+     
+     public static ArrayList<String[]> consultarPorCPF(String cCpf) {
+        ArrayList<ClienteModel> Clientes = LojaDAO.consultarCPF(cCpf);
         ArrayList<String[]> listaClientes = new ArrayList<>();
 
         for (int i = 0; i < Clientes.size(); i++) {
-            listaClientes.add(new String[]{Clientes.get(i).getCpf(),Clientes.get(i).getNome()});
+            listaClientes.add(new String[]{String.valueOf(Clientes.get(i).getIdCliente()), Clientes.get(i).getNome(), Clientes.get(i).getData(), 
+                Clientes.get(i).getCpf(), Clientes.get(i).getEmail(), String.valueOf(Clientes.get(i).getTelefone()), Clientes.get(i).getEndereco(), 
+                Clientes.get(i).getComplemeto(), Clientes.get(i).getBairro(), Clientes.get(i).getCidade(), Clientes.get(i).getCEP()});
+
         }
 
         return listaClientes;
-
     }
 }

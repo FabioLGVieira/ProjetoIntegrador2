@@ -3,11 +3,11 @@ package model;
 public class ProdutoModel {
 
     private static int qtdProd;
-    int idProduto;
-    String nome;
-    String data;
-    int quantidade;
-    float valor;
+    private int idProduto;
+    private String nome;
+    private String data;
+    private int quantidade;
+    private float valor;
 
     public ProdutoModel() {
     }

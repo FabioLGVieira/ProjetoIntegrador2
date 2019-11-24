@@ -30,7 +30,7 @@ public class ProdutoController {
         return LojaDAO.removerQuantidade(p);
     }
 
-    public static ArrayList<String[]> consultarCadastro() {
+    public static ArrayList<String[]> consultarProduto() {
         ArrayList<ProdutoModel> produtos = LojaDAO.consultarEstoque();
         ArrayList<String[]> listaProdutos = new ArrayList<>();
 

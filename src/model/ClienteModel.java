@@ -3,17 +3,18 @@ package model;
 public class ClienteModel {
 
     private static int qtdCli;
-    int idCliente;
-    String nome;
-    String data;
-    String cpf;
-    String email;
-    String telefone;
-    String endereco;
-    String complemeto;
-    String Bairro;
-    String cidade;
-    String CEP;
+    private int idCliente;
+    private String nome;
+    private String data;
+    private String cpf;
+    private String email;
+    private String telefone;
+    private String endereco;
+    private String complemeto;
+    private String Bairro;
+    private String cidade;
+    private String CEP;
+    private boolean Ativo;
 
     public ClienteModel() {
     }
@@ -31,6 +32,7 @@ public class ClienteModel {
         this.Bairro = bairro;
         this.cidade = cidade;
         this.CEP = CEP;
+        this.Ativo = true;
     }
     
     public ClienteModel(int idCliente, String nome, String data, String cpf, String email, String telefone, String endereco, String complemeto, String Bairro, String cidade, String CEP) {
@@ -45,6 +47,14 @@ public class ClienteModel {
         this.Bairro = Bairro;
         this.cidade = cidade;
         this.CEP = CEP;
+    }
+
+    public boolean isAtivo() {
+        return Ativo;
+    }
+
+    public void setAtivo(boolean Ativo) {
+        this.Ativo = Ativo;
     }
     
     public static int getQtdCli() {

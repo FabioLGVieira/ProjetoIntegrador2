@@ -17,7 +17,7 @@ public class EstoqueView extends javax.swing.JFrame {
     }
 
     public void carregarTabela() {
-        ArrayList<String[]> linhasProdutos = ProdutoController.consultarCadastro();
+        ArrayList<String[]> linhasProdutos = ProdutoController.consultarProduto();
 
         DefaultTableModel modelProdutos = new DefaultTableModel();
         modelProdutos.addColumn("Código");
@@ -94,7 +94,7 @@ public class EstoqueView extends javax.swing.JFrame {
 
         txt_quantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
 
-        txt_valor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txt_valor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00;(#,##0.00)"))));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -346,6 +346,16 @@ public class EstoqueView extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um item do Estoque!");
         }
+        limparCampos();
+        
+        if(btn_adicionar.isEnabled()){
+            limparCampos();
+        } else {
+            btn_alterar.setEnabled(false);
+            btn_remover.setEnabled(false);
+            btn_adicionar.setEnabled(true);
+            limparCampos();
+        }
     }//GEN-LAST:event_btn_removerActionPerformed
 
     private void btn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterarActionPerformed
@@ -353,7 +363,7 @@ public class EstoqueView extends javax.swing.JFrame {
             
             //habilitarCampos();
             if(validarCampos())
-            ProdutoController.atualizar(Integer.parseInt(idLabel.getText()), txt_produto.getText(), Integer.parseInt(txt_quantidade.getText()), txt_data.getText(), Float.parseFloat(txt_valor.getText().toString()));
+            ProdutoController.atualizar(Integer.parseInt(idLabel.getText()), txt_produto.getText(), Integer.parseInt(txt_quantidade.getText()), txt_data.getText(), Float.parseFloat(txt_valor.getText().replace(",", "")));
             btn_adicionar.setEnabled(true);
             btn_alterar.setEnabled(false);
             limparCampos();
@@ -367,9 +377,7 @@ public class EstoqueView extends javax.swing.JFrame {
 
     private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
         if (validarCampos()) {
-            //adiciona na tabela
-            //ProdutoController.salvar("adasdasd", 333, "15/03/1521", 111);
-            ProdutoController.salvar(txt_produto.getText(), Integer.parseInt(txt_quantidade.getText().replace(",", "")), txt_data.getText(), Float.parseFloat(txt_valor.getText().replace(",", "")));
+            ProdutoController.salvar(txt_produto.getText(), Integer.parseInt(txt_quantidade.getText()), txt_data.getText(), Float.parseFloat(txt_valor.getText().replace(",", "")));
             carregarTabela();
             limparCampos();
         }

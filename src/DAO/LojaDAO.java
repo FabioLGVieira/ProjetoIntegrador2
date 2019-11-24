@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import model.ClienteModel;
+import model.PedidoModel;
 import model.ProdutoModel;
+import model.VendaModel;
 
 /**
  *
@@ -288,7 +290,7 @@ public class LojaDAO {
             instrucaoSQL = conexao.createStatement();
             
             int linhasAfetadas = instrucaoSQL.executeUpdate("INSERT INTO cliente "
-                    + "(Nome_cliente,CPF, celular, Email, Data_nasci, Endereco, Complemento, Bairro, Cidade, CEP ) "
+                    + "(Nome_cliente,CPF, celular, Email, Data_nasci, Endereco, Complemento, Bairro, Cidade, CEP, ativo ) "
                     + "VALUES("
                     + "'" + c.getNome() + "',"
                     + "'" + c.getCpf() + "',"
@@ -299,7 +301,8 @@ public class LojaDAO {
                     + "'" + c.getComplemeto() + "',"
                     + "'" + c.getBairro() + "',"
                     + "'" + c.getCidade() + "',"
-                    + "'" + c.getCEP() + "');"
+                    + "'" + c.getCEP() + "', "
+                    + "true);"
             );
 
             if (linhasAfetadas > 0) {
@@ -385,7 +388,7 @@ public class LojaDAO {
             conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
             instrucaoSQL = conexao.createStatement();
 
-            int linhasAfetadas = instrucaoSQL.executeUpdate("delete from cliente "
+            int linhasAfetadas = instrucaoSQL.executeUpdate("update cliente set ativo = false"
                     + " where cod_cli="
                     + pID + ";"
             );
@@ -419,7 +422,7 @@ public class LojaDAO {
         Statement instrucaoSQL = null;
         ResultSet rs = null;
 
-        ArrayList<ClienteModel> listaCarro = new ArrayList<ClienteModel>();
+        ArrayList<ClienteModel> listaCliente = new ArrayList<ClienteModel>();
 
         try {
             Class.forName(DRIVER);
@@ -440,15 +443,16 @@ public class LojaDAO {
                 c.setBairro(rs.getString("bairro"));
                 c.setCidade(rs.getString("cidade"));
                 c.setCEP(rs.getString("cep"));
-                listaCarro.add(c);
+                c.setAtivo(rs.getBoolean("Ativo"));
+                listaCliente.add(c);
             }
 
         } catch (ClassNotFoundException ex) {
             System.out.println(ex);
-            listaCarro = null;
+            listaCliente = null;
         } catch (SQLException ex) {
             System.out.println("Erro no comando SQL.");
-            listaCarro = null;
+            listaCliente = null;
         } finally {
             //Libero os recursos da memória
             try {
@@ -465,12 +469,166 @@ public class LojaDAO {
             }
         }
 
-        return listaCarro;
+        return listaCliente;
+    }
+    
+    public static ArrayList<ClienteModel> consultarNome(String nome) {
+        Connection conexao = null;
+        Statement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        ArrayList<ClienteModel> listaNome = new ArrayList<ClienteModel>();
+
+        try {
+            Class.forName(DRIVER);
+            conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
+            instrucaoSQL = conexao.createStatement();
+            rs = instrucaoSQL.executeQuery("SELECT * FROM cliente where nome_cliente = '" + nome + "';");
+
+            while (rs.next()) {
+                ClienteModel c = new ClienteModel();
+                c.setIdCliente(rs.getInt("cod_cli"));
+                c.setNome(rs.getString("nome_cliente"));
+                c.setData(rs.getString("data_nasci"));
+                c.setCpf(rs.getString("CPF"));
+                c.setTelefone(rs.getString("celular"));
+                c.setEmail(rs.getString("email"));
+                c.setEndereco(rs.getString("endereco"));
+                c.setComplemeto(rs.getString("complemento"));
+                c.setBairro(rs.getString("bairro"));
+                c.setCidade(rs.getString("cidade"));
+                c.setCEP(rs.getString("cep"));
+                listaNome.add(c);
+            }
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex);
+            listaNome = null;
+        } catch (SQLException ex) {
+            System.out.println("Erro no comando SQL.");
+            listaNome = null;
+        } finally {
+            //Libero os recursos da memória
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException ex) {
+            }
+        }
+
+        return listaNome;
+    }
+    
+    public static ArrayList<ClienteModel> consultarCPF(String cpf) {
+        Connection conexao = null;
+        Statement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        ArrayList<ClienteModel> listaCpf = new ArrayList<ClienteModel>();
+
+        try {
+            Class.forName(DRIVER);
+            conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
+            instrucaoSQL = conexao.createStatement();
+            rs = instrucaoSQL.executeQuery("SELECT * FROM cliente where cpf = '" + cpf + "';");
+
+            while (rs.next()) {
+                ClienteModel c = new ClienteModel();
+                c.setIdCliente(rs.getInt("cod_cli"));
+                c.setNome(rs.getString("nome_cliente"));
+                c.setData(rs.getString("data_nasci"));
+                c.setCpf(rs.getString("CPF"));
+                c.setTelefone(rs.getString("celular"));
+                c.setEmail(rs.getString("email"));
+                c.setEndereco(rs.getString("endereco"));
+                c.setComplemeto(rs.getString("complemento"));
+                c.setBairro(rs.getString("bairro"));
+                c.setCidade(rs.getString("cidade"));
+                c.setCEP(rs.getString("cep"));
+                listaCpf.add(c);
+            }
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex);
+            listaCpf = null;
+        } catch (SQLException ex) {
+            System.out.println("Erro no comando SQL.");
+            listaCpf = null;
+        } finally {
+            //Libero os recursos da memória
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException ex) {
+            }
+        }
+
+        return listaCpf;
+    }
+    
+    public static ArrayList<ClienteModel> consultarCpfVenda(String cpf) {
+        Connection conexao = null;
+        Statement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        ArrayList<ClienteModel> listaCpfVenda = new ArrayList<ClienteModel>();
+
+        try {
+            Class.forName(DRIVER);
+            conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
+            instrucaoSQL = conexao.createStatement();
+            rs = instrucaoSQL.executeQuery("SELECT * FROM cliente where cpf = '" + cpf + "';");
+
+            while (rs.next()) {
+                ClienteModel c = new ClienteModel();
+                c.setIdCliente(rs.getInt("cod_cli"));
+                c.setNome(rs.getString("nome_cliente"));
+                c.setCpf(rs.getString("cpf"));
+                listaCpfVenda.add(c);
+            }
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex);
+            listaCpfVenda = null;
+        } catch (SQLException ex) {
+            System.out.println("Erro no comando SQL.");
+            listaCpfVenda = null;
+        } finally {
+            //Libero os recursos da memória
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException ex) {
+            }
+        }
+
+        return listaCpfVenda;
     }
 //    </editor-fold>
-    /*
+    
 //    <editor-fold defaultstate="collapsed" desc="relatorio">
-    public static boolean salvar(Carro c) {
+    public static boolean salvarVenda(VendaModel v) {
         boolean retorno = false;
 
         try {
@@ -481,11 +639,11 @@ public class LojaDAO {
             conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
             instrucaoSQL = conexao.createStatement();
 
-            int linhasAfetadas = instrucaoSQL.executeUpdate("INSERT INTO carro (modelo,ano,valor) "
-                    + "VALUES("
-                    + "'" + c.getModelo() + "',"
-                    + c.getAno() + ","
-                    + c.getValor() + ")"
+            int linhasAfetadas = instrucaoSQL.executeUpdate("INSERT INTO venda (cod_cli, nome_cliente,Data_venda,Valor_Total) "
+                    + "VALUES(" + v.getCodCliente() + ", '" 
+                    + v.getNomeCliente()+ "', '"
+                    + v.getData() + "',"
+                    + v.getValor() +");"
             );
 
             if (linhasAfetadas > 0) {
@@ -515,112 +673,35 @@ public class LojaDAO {
         return retorno;
     }
 
-    public static boolean atualizar(Carro c) {
-        boolean retorno = false;
-        conexao = null;
-        instrucaoSQL = null;
-        try {
-            Class.forName(DRIVER);
-            conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
-            instrucaoSQL = conexao.createStatement();
-
-            int linhasAfetadas = instrucaoSQL.executeUpdate("update carro set "
-                    + "idCarro=" + c.getIdCarro() + ","
-                    + "modelo='" + c.getModelo() + "',"
-                    + "ano=" + c.getAno() + ","
-                    + "valor=" + c.getValor() + " where idCarro="
-                    + c.getIdCarro() + ";"
-            );
-
-            if (linhasAfetadas > 0) {
-                retorno = true;
-            } else {
-                retorno = false;
-            }
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Driver não encontrado.");
-        } catch (SQLException ex) {
-            System.out.println("Erro no comando SQL.");
-        } finally {
-            try {
-                if (instrucaoSQL != null) {
-                    instrucaoSQL.close();
-                }
-                if (conexao != null) {
-                    conexao.close();
-                }
-            } catch (SQLException ex) {
-            }
-        }
-        return retorno;
-    }
-
-    public static boolean excluir(int pID) {
-        boolean retorno = false;
-        conexao = null;
-        instrucaoSQL = null;
-        try {
-            Class.forName(DRIVER);
-            conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
-            instrucaoSQL = conexao.createStatement();
-
-            int linhasAfetadas = instrucaoSQL.executeUpdate("delete from carro "
-                    + " where idCarro="
-                    + pID + ";"
-            );
-
-            if (linhasAfetadas > 0) {
-                retorno = true;
-            } else {
-                retorno = false;
-            }
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Driver não encontrado.");
-        } catch (SQLException ex) {
-            System.out.println("Erro no comando SQL.");
-        } finally {
-
-            try {
-                if (instrucaoSQL != null) {
-                    instrucaoSQL.close();
-                }
-                if (conexao != null) {
-                    conexao.close();
-                }
-            } catch (SQLException ex) {
-            }
-        }
-        return retorno;
-    }
-
-    public static ArrayList<Carro> consultar() {
+    public static ArrayList<VendaModel> consultarVenda() {
         Connection conexao = null;
         Statement instrucaoSQL = null;
         ResultSet rs = null;
 
-        ArrayList<Carro> listaCarro = new ArrayList<Carro>();
+        ArrayList<VendaModel> listaVenda = new ArrayList<VendaModel>();
 
         try {
             Class.forName(DRIVER);
             conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
             instrucaoSQL = conexao.createStatement();
-            rs = instrucaoSQL.executeQuery("SELECT * FROM carro;");
+            rs = instrucaoSQL.executeQuery("SELECT * FROM venda;");
 
             while (rs.next()) {
-                Carro c = new Carro();
-                c.setIdCarro(rs.getInt("idCarro"));
-                c.setModelo(rs.getString("modelo"));
-                c.setAno(rs.getInt("ano"));
-                c.setValor(rs.getDouble("valor"));
-                listaCarro.add(c);
+                VendaModel v = new VendaModel();
+                v.setIdVenda(rs.getInt("cod_venda"));
+                v.setCodCliente(rs.getInt("cod_cli"));
+                v.setNomeCliente(rs.getString("nome_Cliente"));
+                v.setData(rs.getString("data_venda"));
+                v.setValor(rs.getFloat("valor_total"));
+                listaVenda.add(v);
             }
 
         } catch (ClassNotFoundException ex) {
             System.out.println(ex);
-            listaCarro = null;
+            listaVenda = null;
         } catch (SQLException ex) {
             System.out.println("Erro no comando SQL.");
-            listaCarro = null;
+            listaVenda = null;
         } finally {
             //Libero os recursos da memória
             try {
@@ -637,12 +718,60 @@ public class LojaDAO {
             }
         }
 
-        return listaCarro;
+        return listaVenda;
+    }
+    
+    public static ArrayList<VendaModel> consultarPeriodo() {
+        Connection conexao = null;
+        Statement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        ArrayList<VendaModel> listaPeriodo = new ArrayList<VendaModel>();
+
+        try {
+            Class.forName(DRIVER);
+            conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
+            instrucaoSQL = conexao.createStatement();
+            rs = instrucaoSQL.executeQuery("SELECT * FROM venda;");
+
+            while (rs.next()) {
+                VendaModel v = new VendaModel();
+                v.setIdVenda(rs.getInt("cod_venda"));
+                v.setCodCliente(rs.getInt("cod_cli"));
+                v.setNomeCliente(rs.getString("nome_Cliente"));
+                v.setData(rs.getString("data_venda"));
+                v.setValor(rs.getFloat("valor_total"));
+                listaPeriodo.add(v);
+            }
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex);
+            listaPeriodo = null;
+        } catch (SQLException ex) {
+            System.out.println("Erro no comando SQL.");
+            listaPeriodo = null;
+        } finally {
+            //Libero os recursos da memória
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException ex) {
+            }
+        }
+
+        return listaPeriodo;
     }
 //    </editor-fold>
-    /*
-//    <editor-fold defaultstate="collapsed" desc="carrinho">
-    public static boolean salvar(Carro c) {
+    
+//    <editor-fold defaultstate="collapsed" desc="pedido">
+    public static boolean salvarPedido(PedidoModel c) {
         boolean retorno = false;
 
         try {
@@ -653,11 +782,12 @@ public class LojaDAO {
             conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
             instrucaoSQL = conexao.createStatement();
 
-            int linhasAfetadas = instrucaoSQL.executeUpdate("INSERT INTO carro (modelo,ano,valor) "
+            int linhasAfetadas = instrucaoSQL.executeUpdate("INSERT INTO pedido (cod_venda,nome_produto,quantidade,valor) "
                     + "VALUES("
-                    + "'" + c.getModelo() + "',"
-                    + c.getAno() + ","
-                    + c.getValor() + ")"
+                    + c.getIdVenda()+ ", '"
+                    + c.getNome_prod()+ "',"
+                    + c.getQuantidade()+ ","
+                    + c.getValor() + ");"
             );
 
             if (linhasAfetadas > 0) {
@@ -687,112 +817,34 @@ public class LojaDAO {
         return retorno;
     }
 
-    public static boolean atualizar(Carro c) {
-        boolean retorno = false;
-        conexao = null;
-        instrucaoSQL = null;
-        try {
-            Class.forName(DRIVER);
-            conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
-            instrucaoSQL = conexao.createStatement();
-
-            int linhasAfetadas = instrucaoSQL.executeUpdate("update carro set "
-                    + "idCarro=" + c.getIdCarro() + ","
-                    + "modelo='" + c.getModelo() + "',"
-                    + "ano=" + c.getAno() + ","
-                    + "valor=" + c.getValor() + " where idCarro="
-                    + c.getIdCarro() + ";"
-            );
-
-            if (linhasAfetadas > 0) {
-                retorno = true;
-            } else {
-                retorno = false;
-            }
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Driver não encontrado.");
-        } catch (SQLException ex) {
-            System.out.println("Erro no comando SQL.");
-        } finally {
-            try {
-                if (instrucaoSQL != null) {
-                    instrucaoSQL.close();
-                }
-                if (conexao != null) {
-                    conexao.close();
-                }
-            } catch (SQLException ex) {
-            }
-        }
-        return retorno;
-    }
-
-    public static boolean excluir(int pID) {
-        boolean retorno = false;
-        conexao = null;
-        instrucaoSQL = null;
-        try {
-            Class.forName(DRIVER);
-            conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
-            instrucaoSQL = conexao.createStatement();
-
-            int linhasAfetadas = instrucaoSQL.executeUpdate("delete from carro "
-                    + " where idCarro="
-                    + pID + ";"
-            );
-
-            if (linhasAfetadas > 0) {
-                retorno = true;
-            } else {
-                retorno = false;
-            }
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Driver não encontrado.");
-        } catch (SQLException ex) {
-            System.out.println("Erro no comando SQL.");
-        } finally {
-
-            try {
-                if (instrucaoSQL != null) {
-                    instrucaoSQL.close();
-                }
-                if (conexao != null) {
-                    conexao.close();
-                }
-            } catch (SQLException ex) {
-            }
-        }
-        return retorno;
-    }
-
-    public static ArrayList<Carro> consultar() {
+    public static ArrayList<PedidoModel> consultarPedido(int cod) {
         Connection conexao = null;
         Statement instrucaoSQL = null;
         ResultSet rs = null;
 
-        ArrayList<Carro> listaCarro = new ArrayList<Carro>();
+        ArrayList<PedidoModel> listaPedido = new ArrayList<PedidoModel>();
 
         try {
             Class.forName(DRIVER);
             conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
             instrucaoSQL = conexao.createStatement();
-            rs = instrucaoSQL.executeQuery("SELECT * FROM carro;");
+            rs = instrucaoSQL.executeQuery("SELECT * FROM pedido where cod_venda="+ cod + ";");
 
             while (rs.next()) {
-                Carro c = new Carro();
-                c.setIdCarro(rs.getInt("idCarro"));
-                c.setModelo(rs.getString("modelo"));
-                c.setAno(rs.getInt("ano"));
-                c.setValor(rs.getDouble("valor"));
-                listaCarro.add(c);
+                PedidoModel c = new PedidoModel();
+                c.setIdVenda(rs.getInt("cod_venda"));
+                c.setNome_prod(rs.getString("nome_produto"));
+                c.setQuantidade(rs.getInt("quantidade"));
+                c.setValor(rs.getFloat("valor"));
+                listaPedido.add(c);
             }
 
         } catch (ClassNotFoundException ex) {
             System.out.println(ex);
-            listaCarro = null;
+            listaPedido = null;
         } catch (SQLException ex) {
             System.out.println("Erro no comando SQL.");
-            listaCarro = null;
+            listaPedido = null;
         } finally {
             //Libero os recursos da memória
             try {
@@ -809,7 +861,98 @@ public class LojaDAO {
             }
         }
 
-        return listaCarro;
+        return listaPedido;
     }
-//    </editor-fold>*/
+    
+    public static ArrayList<VendaModel> consultarUltimaVenda() {
+        Connection conexao = null;
+        Statement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        ArrayList<VendaModel> listaNumVenda = new ArrayList<VendaModel>();
+
+        try {
+            Class.forName(DRIVER);
+            conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
+            instrucaoSQL = conexao.createStatement();
+            rs = instrucaoSQL.executeQuery("SELECT max(cod_venda) as cod_venda FROM venda;");
+
+            while (rs.next()) {
+                VendaModel c = new VendaModel();
+                c.setIdVenda(rs.getInt("cod_venda"));
+                listaNumVenda.add(c);
+            }
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex);
+            listaNumVenda = null;
+        } catch (SQLException ex) {
+            System.out.println("Erro no comando SQL.");
+            listaNumVenda = null;
+        } finally {
+            //Libero os recursos da memória
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException ex) {
+            }
+        }
+
+        return listaNumVenda;
+    }
+    
+    public static ArrayList<VendaModel> consultarUltimaVendaNome(int CodVenda) {
+        Connection conexao = null;
+        Statement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        ArrayList<VendaModel> listaNomeVenda = new ArrayList<VendaModel>();
+
+        try {
+            Class.forName(DRIVER);
+            conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
+            instrucaoSQL = conexao.createStatement();
+            rs = instrucaoSQL.executeQuery("select venda.cod_venda, cliente.nome_cliente,valor_total from venda " +
+                            "join cliente on venda.cod_cli = cliente.cod_cli where cod_venda = " + CodVenda+ ";");
+
+            while (rs.next()) {
+                VendaModel c = new VendaModel();
+                c.setIdVenda(rs.getInt("cod_venda"));
+                c.setNomeCliente(rs.getString("nome_cliente"));
+                c.setValor(rs.getFloat("valor_total"));
+                listaNomeVenda.add(c);
+            }
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex);
+            listaNomeVenda = null;
+        } catch (SQLException ex) {
+            System.out.println("Erro no comando SQL.");
+            listaNomeVenda = null;
+        } finally {
+            //Libero os recursos da memória
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException ex) {
+            }
+        }
+
+        return listaNomeVenda;
+    }
+//    </editor-fold>
 }

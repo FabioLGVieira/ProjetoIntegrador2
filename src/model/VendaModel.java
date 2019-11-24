@@ -2,11 +2,11 @@
 package model;
 
 public class VendaModel {
-    int idVenda;
-    String cpfCliente;
-    String nomeCliente;
-    String data;
-    float valor;
+    private int idVenda;
+    private int codCliente;
+    private String nomeCliente;
+    private String data;
+    private float valor;
     private static int codVenda;
 
     public int getIdVenda() {
@@ -16,23 +16,25 @@ public class VendaModel {
     public void setIdVenda(int idVenda) {
         this.idVenda = idVenda;
     }
-
     
-    public VendaModel(String cpf, String nomeCliente, String data, float valor) {
+    public VendaModel(){
+    }
+    
+    public VendaModel(int codCli, String nomeCliente, String data, float valor) {
         codVenda++;
         this.idVenda = codVenda;
         this.nomeCliente = nomeCliente;
         this.data = data;
         this.valor = valor;
-        this.cpfCliente = cpf;
+        this.codCliente = codCli;
     }
 
-    public String getCpfCliente() {
-        return cpfCliente;
+    public int getCodCliente() {
+        return codCliente;
     }
 
-    public void setCpfCliente(String cpfCliente) {
-        this.cpfCliente = cpfCliente;
+    public void setCodCliente(int codCliente) {
+        this.codCliente = codCliente;
     }
 
     public String getNomeCliente() {
