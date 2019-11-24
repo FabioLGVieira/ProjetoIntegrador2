@@ -94,7 +94,12 @@ public class EstoqueView extends javax.swing.JFrame {
 
         txt_quantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
 
-        txt_valor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00;(#,##0.00)"))));
+        txt_valor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat(""))));
+        txt_valor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_valorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -377,7 +382,7 @@ public class EstoqueView extends javax.swing.JFrame {
 
     private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
         if (validarCampos()) {
-            ProdutoController.salvar(txt_produto.getText(), Integer.parseInt(txt_quantidade.getText()), txt_data.getText(), Float.parseFloat(txt_valor.getText().replace(",", "")));
+            ProdutoController.salvar(txt_produto.getText(), Integer.parseInt(txt_quantidade.getText()), txt_data.getText(), Float.parseFloat(txt_valor.getText()));
             carregarTabela();
             limparCampos();
         }
@@ -405,6 +410,10 @@ public class EstoqueView extends javax.swing.JFrame {
             limparCampos();
         }
     }//GEN-LAST:event_btn_alterar1ActionPerformed
+
+    private void txt_valorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_valorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_valorActionPerformed
 
     public boolean validarCampos() {
         if (txt_produto.getText().equalsIgnoreCase("")) {

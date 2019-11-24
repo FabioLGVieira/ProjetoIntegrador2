@@ -26,8 +26,8 @@ public class VendaController {
 
     }
     
-    public static ArrayList<String[]> consultarPeriodo() {
-        ArrayList<VendaModel> vendas = LojaDAO.consultarPeriodo();
+    public static ArrayList<String[]> consultarPeriodo(String Pesquisa, String DataDe, String DataFim) {
+        ArrayList<VendaModel> vendas = LojaDAO.consultarPeriodo(Pesquisa, DataDe, DataFim);
         ArrayList<String[]> listaVenda = new ArrayList<>();
 
         for (int i = 0; i < vendas.size(); i++) {

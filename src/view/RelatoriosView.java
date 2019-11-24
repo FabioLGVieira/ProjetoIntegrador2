@@ -1,4 +1,3 @@
-
 package view;
 
 import controller.VendaController;
@@ -18,8 +17,8 @@ public class RelatoriosView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         carregaTabela();
     }
-    
-     public void carregaTabela() {
+
+    public void carregaTabela() {
         ArrayList<String[]> linhasProdutos = VendaController.consultarVenda();
 
         DefaultTableModel modelProdutos = new DefaultTableModel();
@@ -37,7 +36,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         for (int i = 0; i < modelProdutos.getColumnCount(); i++) {
             tbl_relatorio.getColumnModel().getColumn(i).setPreferredWidth(100);
         }
-            tbl_relatorio.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tbl_relatorio.getColumnModel().getColumn(2).setPreferredWidth(200);
     }
 
     /**
@@ -57,6 +56,7 @@ public class RelatoriosView extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         txtDataInicio = new javax.swing.JFormattedTextField();
         txtDataFim = new javax.swing.JFormattedTextField();
+        jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_relatorio = new javax.swing.JTable();
 
@@ -96,6 +96,13 @@ public class RelatoriosView extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        jButton1.setText("Limpar Pesquisa");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -105,33 +112,34 @@ public class RelatoriosView extends javax.swing.JFrame {
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
                 .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel18)
-                        .addComponent(btn_pesquisa)
-                        .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel17))
-                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txt_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel11)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel17)
+                    .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18)
+                    .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_pesquisa)
+                    .addComponent(jButton1))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         tbl_relatorio.setModel(new javax.swing.table.DefaultTableModel(
@@ -159,10 +167,8 @@ public class RelatoriosView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -179,20 +185,58 @@ public class RelatoriosView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pesquisaActionPerformed
-        // TODO add your handling code here:
+        carregaTabela();
     }//GEN-LAST:event_txt_pesquisaActionPerformed
 
     private void btn_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisaActionPerformed
-        // pesquisa cliente no tempo determinado
-        Date nowDate = Date.valueOf(LocalDate.MAX);
-        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        System.out.println(nowDate);
+
+        String dataDe = "2010/01/01";
+        String dataFim = "2019/12/31";
+        if (!txtDataInicio.getText().equals("  /  /    ")) {
+            dataDe = transformaData(txtDataInicio.getText());
+        }
+        if (!txtDataFim.getText().equals("  /  /    ")) {
+            dataFim = transformaData(txtDataFim.getText());
+        }
+
+        ArrayList<String[]> LinhaVendas = VendaController.consultarPeriodo(txt_pesquisa.getText(), dataDe, dataFim);
+
+        DefaultTableModel modelProdutos = new DefaultTableModel();
+        modelProdutos.addColumn("Código Venda");
+        modelProdutos.addColumn("Código Cliente");
+        modelProdutos.addColumn("Nome");
+        modelProdutos.addColumn("Data");
+        modelProdutos.addColumn("Total");
+        tbl_relatorio.setModel(modelProdutos);
+
+        for (String[] c : LinhaVendas) {
+            modelProdutos.addRow(c);
+        }
+
+        for (int i = 0; i < modelProdutos.getColumnCount(); i++) {
+            tbl_relatorio.getColumnModel().getColumn(i).setPreferredWidth(100);
+        }
+        tbl_relatorio.getColumnModel().getColumn(2).setPreferredWidth(200);
+        
+        txt_pesquisa.setText("");
+        txtDataFim.setText("");
+        txtDataInicio.setText("");
     }//GEN-LAST:event_btn_pesquisaActionPerformed
+
+    public String transformaData(String dt) {
+        String dataFormatada = String.format("%s/%s/%s", dt.substring(6, 10), dt.substring(3, 5), dt.substring(0, 2));
+        return dataFormatada;
+    }
+
 
     private void tbl_relatorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_relatorioMouseClicked
         PedidoView pedidoView = new PedidoView(Integer.parseInt(tbl_relatorio.getValueAt(tbl_relatorio.getSelectedRow(), 0).toString()));
         pedidoView.setVisible(true);
     }//GEN-LAST:event_tbl_relatorioMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,6 +276,7 @@ public class RelatoriosView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_pesquisa;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;

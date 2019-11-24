@@ -488,7 +488,7 @@ public class CarrinhoView extends javax.swing.JFrame {
         String cpf = (String) modelProdutos.getValueAt(0, 2).toString();
 
         if (cpf.equals(txt_cpf.getText())) {
-            VendaController.salvar(cod_cliente, nome, data, Float.parseFloat(lbl_Total.getText()));
+            VendaController.salvar(cod_cliente, nome, data, Float.parseFloat(lbl_Total.getText().replace(",", "")));
             ArrayList<String[]> linhasPedido = PedidoController.consultarUltimaVenda();
             DefaultTableModel modelPedidos = new DefaultTableModel();
             modelPedidos.addColumn("Cod_venda");
