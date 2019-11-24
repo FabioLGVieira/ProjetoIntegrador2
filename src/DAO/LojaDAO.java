@@ -21,7 +21,7 @@ public class LojaDAO {
     public static String LOGIN = "root";
     public static String SENHA = "";
 
-    public static String URL = "jdbc:mysql://localhost:3306/tijolo?useTimezone=true&serverTimezone=UTC&useSSL=false";
+    public static String URL = "jdbc:mysql://localhost:3380/tijolo?useTimezone=true&serverTimezone=UTC&useSSL=false";
 
     static Connection conexao = null;
     static Statement instrucaoSQL = null;
@@ -732,7 +732,9 @@ public class LojaDAO {
             Class.forName(DRIVER);
             conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
             instrucaoSQL = conexao.createStatement();
-            rs = instrucaoSQL.executeQuery("SELECT * FROM venda WHERE COD_cli = '"+Pesquisa+"' between '" + DataDe+ " ' and ' " + DataFim + " ';");
+            rs = instrucaoSQL.executeQuery("SELECT * FROM venda WHERE COD_cli = '" + Pesquisa 
+                    + "' and data_venda between '" + DataDe+ " ' and ' " + DataFim + " ';");
+            
             while (rs.next()) {
                 VendaModel v = new VendaModel();
                 v.setIdVenda(rs.getInt("cod_venda"));
