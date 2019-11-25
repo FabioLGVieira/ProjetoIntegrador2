@@ -91,7 +91,8 @@ public class ClienteController {
         for (int i = 0; i < Clientes.size(); i++) {
             listaClientes.add(new String[]{String.valueOf(Clientes.get(i).getIdCliente()), Clientes.get(i).getNome(), Clientes.get(i).getData(),
                 Clientes.get(i).getCpf(), Clientes.get(i).getEmail(), String.valueOf(Clientes.get(i).getTelefone()), Clientes.get(i).getEndereco(),
-                Clientes.get(i).getComplemeto(), Clientes.get(i).getBairro(), Clientes.get(i).getCidade(), Clientes.get(i).getCEP()});
+                Clientes.get(i).getComplemeto(), Clientes.get(i).getBairro(), Clientes.get(i).getCidade(), Clientes.get(i).getCEP(),
+                String.valueOf(Clientes.get(i).isAtivo())});
 
         }
 
@@ -110,7 +111,8 @@ public class ClienteController {
         for (int i = 0; i < Clientes.size(); i++) {
             listaClientes.add(new String[]{String.valueOf(Clientes.get(i).getIdCliente()), Clientes.get(i).getNome(), Clientes.get(i).getData(),
                 Clientes.get(i).getCpf(), Clientes.get(i).getEmail(), String.valueOf(Clientes.get(i).getTelefone()), Clientes.get(i).getEndereco(),
-                Clientes.get(i).getComplemeto(), Clientes.get(i).getBairro(), Clientes.get(i).getCidade(), Clientes.get(i).getCEP()});
+                Clientes.get(i).getComplemeto(), Clientes.get(i).getBairro(), Clientes.get(i).getCidade(), Clientes.get(i).getCEP(),
+                String.valueOf(Clientes.get(i).isAtivo())});
 
         }
 

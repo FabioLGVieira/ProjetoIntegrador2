@@ -39,6 +39,30 @@ public class EstoqueView extends javax.swing.JFrame {
             tbl_estoque.getColumnModel().getColumn(i).setPreferredWidth(100);
         }
     }
+    
+    public void carregarPesquisa() {
+        ArrayList<String[]> linhasProdutos = ProdutoController.consultarEstoquePesquisa(txt_pesquisa.getText());
+
+        DefaultTableModel modelProdutos = new DefaultTableModel();
+        modelProdutos.addColumn("Código");
+        modelProdutos.addColumn("Produto");
+        modelProdutos.addColumn("Quantidade");
+        modelProdutos.addColumn("Data de Entrada");
+        modelProdutos.addColumn("Valor");
+        tbl_estoque.setModel(modelProdutos);
+        
+        for (String[] c : linhasProdutos) {
+            modelProdutos.addRow(c);
+        }
+            
+        for (int i = 0; i < tbl_estoque.getColumnCount(); i++) {
+            tbl_estoque.getColumnModel().getColumn(i).setPreferredWidth(100);
+        }
+        if(modelProdutos.getRowCount() == 0){
+            JOptionPane.showMessageDialog(this, "Nenhum produto encontrado");
+            carregarTabela();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -166,6 +190,11 @@ public class EstoqueView extends javax.swing.JFrame {
         });
 
         btn_pesquisa.setText("Procurar");
+        btn_pesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_pesquisaActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Pesquisar por produto:");
 
@@ -387,7 +416,7 @@ public class EstoqueView extends javax.swing.JFrame {
 
     private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
         if (validarCampos()) {
-            ProdutoController.salvar(txt_produto.getText(), Integer.parseInt(txt_quantidade.getText()), txt_data.getText(), Float.parseFloat(txt_valor.getText()));
+            ProdutoController.salvar(txt_produto.getText(), Integer.parseInt(txt_quantidade.getText().replace(".", "")), txt_data.getText(), Float.parseFloat(txt_valor.getText().replace(".","").replace(",", ".")));
             carregarTabela();
             limparCampos();
         }
@@ -419,6 +448,10 @@ public class EstoqueView extends javax.swing.JFrame {
     private void txt_valorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_valorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_valorActionPerformed
+
+    private void btn_pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_pesquisaActionPerformed
+        carregarPesquisa();
+    }//GEN-LAST:event_btn_pesquisaActionPerformed
 
     public boolean validarCampos() {
         if (txt_produto.getText().equalsIgnoreCase("")) {

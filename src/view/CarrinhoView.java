@@ -10,10 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * 
+ *
  * @author Icaro
  */
-
 public class CarrinhoView extends javax.swing.JFrame {
 
     Connection con;
@@ -227,6 +226,11 @@ public class CarrinhoView extends javax.swing.JFrame {
         txt_valor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("R$#,##0.00"))));
 
         txt_quantidade.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0"))));
+        txt_quantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_quantidadeActionPerformed(evt);
+            }
+        });
         txt_quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_quantidadeKeyReleased(evt);
@@ -470,51 +474,54 @@ public class CarrinhoView extends javax.swing.JFrame {
     private void btn_fimVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_fimVendaActionPerformed
 
         boolean verifica = true;
-        //if (verificaCampos2()){
-        ArrayList<String[]> linhasVenda = VendaController.consultarCPF(txt_cpf.getText());
+        if (verificaCampos2()) {
+            ArrayList<String[]> linhasVenda = VendaController.consultarCPF(txt_cpf.getText());
 
-        DefaultTableModel modelProdutos = new DefaultTableModel();
-        modelProdutos.addColumn("Cod_cli");
-        modelProdutos.addColumn("Nome");
-        modelProdutos.addColumn("cpf");
+            DefaultTableModel modelProdutos = new DefaultTableModel();
+            modelProdutos.addColumn("Cod_cli");
+            modelProdutos.addColumn("Nome");
+            modelProdutos.addColumn("cpf");
 
-        for (String[] c : linhasVenda) {
-            modelProdutos.addRow(c);
-        }
-
-        int cod_cliente = Integer.parseInt(modelProdutos.getValueAt(0, 0).toString());
-        String nome = (String) modelProdutos.getValueAt(0, 1).toString();
-        String data = transformaData(txt_data.getText());
-        String cpf = (String) modelProdutos.getValueAt(0, 2).toString();
-
-        if (cpf.equals(txt_cpf.getText())) {
-            VendaController.salvar(cod_cliente, nome, data, Float.parseFloat(lbl_Total.getText().replace(",", "")));
-            ArrayList<String[]> linhasPedido = PedidoController.consultarUltimaVenda();
-            DefaultTableModel modelPedidos = new DefaultTableModel();
-            modelPedidos.addColumn("Cod_venda");
-
-            for (String[] c : linhasPedido) {
-                modelPedidos.addRow(c);
+            for (String[] c : linhasVenda) {
+                modelProdutos.addRow(c);
             }
             
-            for (int i = 0; i < tbl_carrinho.getRowCount(); i++) {
-            PedidoController.salvar(Integer.parseInt(modelPedidos.getValueAt(0, 0).toString()), tbl_carrinho.getValueAt(i, 1).toString(), 
-                    Integer.parseInt(tbl_carrinho.getValueAt(i, 2).toString()), Float.parseFloat(tbl_carrinho.getValueAt(i, 3).toString()));
+            if(!(modelProdutos.getRowCount()==0)){
+            int cod_cliente = Integer.parseInt(modelProdutos.getValueAt(0, 0).toString());
+            String nome = (String) modelProdutos.getValueAt(0, 1).toString();
+            String cpf = (String) modelProdutos.getValueAt(0, 2).toString();
+            String data = transformaData(txt_data.getText());
+
+            if (cpf.equals(txt_cpf.getText())) {
+                VendaController.salvar(cod_cliente, nome, data, Float.parseFloat(lbl_Total.getText().replace(",", ".")));
+                ArrayList<String[]> linhasPedido = PedidoController.consultarUltimaVenda();
+                DefaultTableModel modelPedidos = new DefaultTableModel();
+                modelPedidos.addColumn("Cod_venda");
+
+                for (String[] c : linhasPedido) {
+                    modelPedidos.addRow(c);
+                }
+
+                for (int i = 0; i < tbl_carrinho.getRowCount(); i++) {
+                    PedidoController.salvar(Integer.parseInt(modelPedidos.getValueAt(0, 0).toString()), tbl_carrinho.getValueAt(i, 1).toString(),
+                            Integer.parseInt(tbl_carrinho.getValueAt(i, 2).toString()), Float.parseFloat(tbl_carrinho.getValueAt(i, 3).toString().replace(",", ".")));
+                }
+            }
+
+            verifica = false;
+            JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!!!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Digite um cpf valido");
+            }
+            if (verifica == false) {
+                ((DefaultTableModel) tbl_carrinho.getModel()).setRowCount(0);
+                txt_produto.setText("");
+                txt_quantidade.setText("");
+                txt_valor.setText("");
+                txt_data.setText("");
+                txt_cpf.setText("");
             }
         }
-
-        verifica = false;
-        JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!!!");
-
-        if (verifica == false) {
-            ((DefaultTableModel) tbl_carrinho.getModel()).setRowCount(0);
-            txt_produto.setText("");
-            txt_quantidade.setText("");
-            txt_valor.setText("");
-            txt_data.setText("");
-            txt_cpf.setText("");
-        }
-
     }//GEN-LAST:event_btn_fimVendaActionPerformed
 
     public String transformaData(String dt) {
@@ -539,16 +546,17 @@ public class CarrinhoView extends javax.swing.JFrame {
 
     private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
         boolean limpar = true;
-        float valor = Float.parseFloat(lbl_Total.getText().replace(",", ""));
+        float valor = Float.parseFloat(lbl_Total.getText().replace(",", "."));
         if (verificaCampos()) {
             DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
             Object[] dados = {tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 0), txt_produto.getText(), txt_quantidade.getText(), txt_valor.getText()};
             dtmPedidos.addRow(dados);
             limpar = false;
-            valor += Float.parseFloat(txt_valor.getText().replace(",", ".").replace("R$", ""));
-            lbl_Total.setText(String.format("%.2f",valor));
+            float nValor = Float.parseFloat(txt_valor.getText().replace(",", ".").replace("R$", ""));
+            valor += nValor;
+            lbl_Total.setText(String.format("%.2f", valor));
             ProdutoController.removerQuantidade(Integer.parseInt(tbl_estoque.getModel().getValueAt(
-                    tbl_estoque.getSelectedRow(), 0).toString()), Integer.parseInt(txt_quantidade.getText()));
+                    tbl_estoque.getSelectedRow(), 0).toString()), Integer.parseInt(txt_quantidade.getText().replace(".", "")));
             carregaTabela();
         }
 
@@ -561,11 +569,16 @@ public class CarrinhoView extends javax.swing.JFrame {
     private void btn_removerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_removerActionPerformed
         if (tbl_carrinho.getSelectedRow() != -1) {
 
+            float valor = Float.parseFloat(lbl_Total.getText().replace(",", "."));
+            float mValor = Float.parseFloat(tbl_carrinho.getValueAt(tbl_carrinho.getSelectedRow(), 3).toString().replace(",", "."));
+            valor -= mValor;
+            lbl_Total.setText(String.format("%.2f", valor));
             DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
             ProdutoController.aumentarQuantidade(
                     Integer.parseInt(tbl_carrinho.getModel().getValueAt(tbl_carrinho.getSelectedRow(), 0).toString()),
                     Integer.parseInt(tbl_carrinho.getModel().getValueAt(tbl_carrinho.getSelectedRow(), 2).toString()));
             dtmPedidos.removeRow(tbl_carrinho.getSelectedRow());
+
             carregaTabela();
         } else {
             JOptionPane.showMessageDialog(null, "Selecione um item para excluir!");
@@ -579,11 +592,21 @@ public class CarrinhoView extends javax.swing.JFrame {
         } else if (tbl_estoque.getRowCount() < 1) {
             JOptionPane.showMessageDialog(null, "Cadastre um produto!");
             txt_quantidade.setText("");
+        } else if (Integer.parseInt(txt_quantidade.getText().replace(".", ""))
+                > Integer.parseInt(tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 3).toString())) {
+            JOptionPane.showMessageDialog(null, "Quantidade maior do que o Estoque!");
+            txt_quantidade.setText("");
         } else {
-            txt_valor.setText(String.valueOf(Float.parseFloat(txt_quantidade.getText())
-                    * Float.parseFloat(tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 2).toString())));
+            float nValor = Integer.parseInt(txt_quantidade.getText().replace(".", ""))
+                    * Float.parseFloat(tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 2).toString());
+
+            txt_valor.setText(String.format("%.2f", nValor));
         }
     }//GEN-LAST:event_txt_quantidadeKeyReleased
+
+    private void txt_quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_quantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_quantidadeActionPerformed
 
     private boolean verificaCampos() {
         if (this.txt_produto.getText().equals("")) {
@@ -602,6 +625,10 @@ public class CarrinhoView extends javax.swing.JFrame {
     }
 
     private boolean verificaCampos2() {
+        if(tbl_carrinho.getRowCount()==0){
+            JOptionPane.showMessageDialog(null, "Adicione um pedido no carrinho");
+            return false;
+        }
         if (this.txt_data.getText().equals("  /  /    ")) {
             JOptionPane.showMessageDialog(null, "Digite a data da compra");
             return false;
@@ -645,7 +672,7 @@ public class CarrinhoView extends javax.swing.JFrame {
     public void limpaInput() {
         txt_produto.setText("");
         txt_quantidade.setText("");
-        txt_valor.setText("R$");
+        txt_valor.setText("");
 
     }
 

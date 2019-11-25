@@ -91,6 +91,24 @@ public class ProdutoController {
      * 
      * @return ArrayList do tipo String[]
      */
+    public static ArrayList<String[]> consultarEstoquePesquisa(String pesquisa) {
+        ArrayList<ProdutoModel> produtos = LojaDAO.consultarEstoquePesquisa(pesquisa);
+        ArrayList<String[]> listaProdutos = new ArrayList<>();
+
+        for (int i = 0; i < produtos.size(); i++) {
+            listaProdutos.add(new String[]{String.valueOf(produtos.get(i).getIdProduto()), produtos.get(i).getNome(),
+                String.valueOf(produtos.get(i).getValor()), String.valueOf(produtos.get(i).getQuantidade())});
+
+        }
+
+        return listaProdutos;
+
+    }
+    
+    /**
+     * 
+     * @return ArrayList do tipo String[]
+     */
     public static ArrayList<String[]> consultarEstoque() {
         ArrayList<ProdutoModel> produtos = LojaDAO.consultarEstoque();
         ArrayList<String[]> listaProdutos = new ArrayList<>();

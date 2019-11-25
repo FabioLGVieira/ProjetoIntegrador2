@@ -25,7 +25,7 @@ public class LojaDAO {
     public static String LOGIN = "root";
     public static String SENHA = "";
 
-    public static String URL = "jdbc:mysql://localhost:3380/tijolo?useTimezone=true&serverTimezone=UTC&useSSL=false";
+    public static String URL = "jdbc:mysql://localhost:3307/tijolo?useTimezone=true&serverTimezone=UTC&useSSL=false";
 
     static Connection conexao = null;
     static Statement instrucaoSQL = null;
@@ -303,6 +303,59 @@ public class LojaDAO {
 
         return listaEstoque;
     }
+    
+    /**
+     * 
+     * @return ArrayList do tipo ProdutoModel
+     */
+
+    public static ArrayList<ProdutoModel> consultarEstoquePesquisa(String pesquisa) {
+        Connection conexao = null;
+        Statement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        ArrayList<ProdutoModel> listaEstoque = new ArrayList<ProdutoModel>();
+
+        try {
+            Class.forName(DRIVER);
+            conexao = DriverManager.getConnection(URL, LOGIN, SENHA);
+            instrucaoSQL = conexao.createStatement();
+            rs = instrucaoSQL.executeQuery("SELECT * FROM estoque where nome_produto = '"+ pesquisa + "';");
+
+            while (rs.next()) {
+                ProdutoModel p = new ProdutoModel();
+                p.setIdProduto(rs.getInt("cod_prod"));
+                p.setNome(rs.getString("nome_produto"));
+                p.setQuantidade(rs.getInt("quantidade"));
+                p.setData(rs.getString("data_entrada"));
+                p.setValor(rs.getFloat("valor"));
+                listaEstoque.add(p);
+            }
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex);
+            listaEstoque = null;
+        } catch (SQLException ex) {
+            System.out.println("Erro no comando SQL.");
+            listaEstoque = null;
+        } finally {
+            //Libero os recursos da memória
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+                if (conexao != null) {
+                    conexao.close();
+                }
+            } catch (SQLException ex) {
+            }
+        }
+
+        return listaEstoque;
+    }
 //    </editor-fold>
 
 //    <editor-fold defaultstate="collapsed" desc="cliente">
@@ -526,6 +579,7 @@ public class LojaDAO {
                 c.setBairro(rs.getString("bairro"));
                 c.setCidade(rs.getString("cidade"));
                 c.setCEP(rs.getString("cep"));
+                c.setAtivo(rs.getBoolean("ativo"));
                 listaNome.add(c);
             }
 
@@ -580,6 +634,7 @@ public class LojaDAO {
                 c.setBairro(rs.getString("bairro"));
                 c.setCidade(rs.getString("cidade"));
                 c.setCEP(rs.getString("cep"));
+                c.setAtivo(rs.getBoolean("ativo"));
                 listaCpf.add(c);
             }
 

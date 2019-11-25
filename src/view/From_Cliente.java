@@ -643,6 +643,7 @@ public class From_Cliente extends javax.swing.JFrame {
         modelClientes.addColumn("Bairro");
         modelClientes.addColumn("Cidade");
         modelClientes.addColumn("CEP");
+        modelClientes.addColumn("Ativo");
 
         tbl_cliente.setModel(modelClientes);
         for (String[] c : linhasClientes) {
