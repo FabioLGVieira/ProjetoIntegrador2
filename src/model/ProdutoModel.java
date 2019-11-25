@@ -1,4 +1,9 @@
 package model;
+/**
+ * 
+ * @author Diego
+ */
+
 
 public class ProdutoModel {
 

@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * 
+ * @author Diego
+ */
+
 public class ClienteModel {
 
     private static int qtdCli;
