@@ -1,6 +1,11 @@
 
 package model;
 
+/**
+ * 
+ * @author Fabio
+ */
+
 public class PedidoModel {
     private int idVenda;
     private String nome_prod;

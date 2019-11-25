@@ -1,18 +1,18 @@
 package view;
 
-import controller.ClienteController;
 import controller.PedidoController;
 import controller.ProdutoController;
 import controller.VendaController;
 import java.beans.Statement;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+/**
+ * 
+ * @author Icaro
+ */
 
 public class CarrinhoView extends javax.swing.JFrame {
 

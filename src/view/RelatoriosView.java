@@ -7,8 +7,8 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author fabio.lgvieira
- */
+ * @author fabio
+ */ 
 public class RelatoriosView extends javax.swing.JFrame {
 
     public RelatoriosView() {
@@ -223,9 +223,12 @@ public class RelatoriosView extends javax.swing.JFrame {
         txtDataFim.setText("");
         }
     }//GEN-LAST:event_btn_pesquisaActionPerformed
-
-    public String transformaData(String dt) {
-        String dataFormatada = String.format("%s/%s/%s", dt.substring(6, 10), dt.substring(3, 5), dt.substring(0, 2));
+    /**
+     * @param data objeto do tipo String
+     * @return String indicando uma nova formatação para a data
+     */
+    public String transformaData(String data) {
+        String dataFormatada = String.format("%s/%s/%s", data.substring(6, 10), data.substring(3, 5), data.substring(0, 2));
         return dataFormatada;
     }
 

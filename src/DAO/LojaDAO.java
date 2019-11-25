@@ -13,7 +13,11 @@ import model.VendaModel;
 
 /**
  *
- * @author fabio.lgvieira
+ * @author fabio
+ * @see controller.ClienteController
+ * @see controller.PedidoController
+ * @see controller.ProdutoController
+ * @see controller.VendaController
  */
 public class LojaDAO {
 
@@ -27,6 +31,11 @@ public class LojaDAO {
     static Statement instrucaoSQL = null;
 
 //    <editor-fold defaultstate="collapsed" desc="produto">
+    
+    /**
+     * @param p do tipo ProdutoModel
+     * @return boolean true: retorna uma lista, false: o modelo nao é carregado com as informaçoes
+     */
     public static boolean salvarProduto(ProdutoModel p) {
         boolean retorno = false;
 
@@ -72,7 +81,10 @@ public class LojaDAO {
 
         return retorno;
     }
-
+/**
+     * @param p do tipo ProdutoModel
+     * @return boolean true: produto foi atualizado, false: produto nao foi autalizado
+     */
     public static boolean atualizarProduto(ProdutoModel p) {
         boolean retorno = false;
         conexao = null;
@@ -113,7 +125,10 @@ public class LojaDAO {
         }
         return retorno;
     }
-
+/**
+     * @param p do tipo ProdutoModel
+     * @return boolean true: aumentou a quantidade, false: erro no comando SQL
+     */
     public static boolean aumentarQuantidade(ProdutoModel p) {
         boolean retorno = false;
         conexao = null;
@@ -151,7 +166,10 @@ public class LojaDAO {
         }
         return retorno;
     }
-    
+    /**
+     * @param p do tipo ProdutoModel
+     * @return boolean true: a quantidade é reduzida, false: erro no comando SQL
+     */
     public static boolean removerQuantidade(ProdutoModel p) {
         boolean retorno = false;
         conexao = null;
@@ -189,6 +207,11 @@ public class LojaDAO {
         }
         return retorno;
     }
+    
+    /**
+     * @param pID do tipo int
+     * @return boolean true: produto é excluido, false: erro no comando SQL
+     */
 
     public static boolean excluirProduto(int pID) {
         boolean retorno = false;
@@ -227,6 +250,11 @@ public class LojaDAO {
         }
         return retorno;
     }
+    
+    /**
+     * 
+     * @return ArrayList do tipo ProdutoModel
+     */
 
     public static ArrayList<ProdutoModel> consultarEstoque() {
         Connection conexao = null;

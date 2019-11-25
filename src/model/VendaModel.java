@@ -1,6 +1,11 @@
 
 package model;
 
+/**
+ * 
+ * @author Fabio
+ */
+
 public class VendaModel {
     private int idVenda;
     private int codCliente;

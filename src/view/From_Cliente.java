@@ -1,11 +1,14 @@
 package view;
 
 import controller.ClienteController;
-import DAO.LojaDAO;
-import model.ClienteModel;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+/**
+ * 
+ * @author Icaro
+ */
 
 public class From_Cliente extends javax.swing.JFrame {
 
