@@ -454,7 +454,7 @@ public class EstoqueView extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_pesquisaActionPerformed
 
     public boolean validarCampos() {
-        if (txt_produto.getText().equalsIgnoreCase("")) {
+        if (txt_produto.getText().trim().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "É obrigatório um nome para o produto!");
             return false;
         }

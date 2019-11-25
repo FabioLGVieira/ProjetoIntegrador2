@@ -506,6 +506,7 @@ public class CarrinhoView extends javax.swing.JFrame {
                     PedidoController.salvar(Integer.parseInt(modelPedidos.getValueAt(0, 0).toString()), tbl_carrinho.getValueAt(i, 1).toString(),
                             Integer.parseInt(tbl_carrinho.getValueAt(i, 2).toString()), Float.parseFloat(tbl_carrinho.getValueAt(i, 3).toString().replace(",", ".")));
                 }
+                lbl_Total.setText("0,00");
             }
 
             verifica = false;
@@ -549,7 +550,7 @@ public class CarrinhoView extends javax.swing.JFrame {
         float valor = Float.parseFloat(lbl_Total.getText().replace(",", "."));
         if (verificaCampos()) {
             DefaultTableModel dtmPedidos = (DefaultTableModel) tbl_carrinho.getModel();
-            Object[] dados = {tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 0), txt_produto.getText(), txt_quantidade.getText(), txt_valor.getText()};
+            Object[] dados = {tbl_estoque.getModel().getValueAt(tbl_estoque.getSelectedRow(), 0), txt_produto.getText(), txt_quantidade.getText(), txt_valor.getText().replace(",", ".")};
             dtmPedidos.addRow(dados);
             limpar = false;
             float nValor = Float.parseFloat(txt_valor.getText().replace(",", ".").replace("R$", ""));
@@ -673,17 +674,6 @@ public class CarrinhoView extends javax.swing.JFrame {
         txt_produto.setText("");
         txt_quantidade.setText("");
         txt_valor.setText("");
-
-    }
-
-    private void desabilitaInput() {
-        txt_produto.setEnabled(false);
-        txt_quantidade.setEnabled(false);
-        txt_data.setEnabled(false);
-        //txt_cpf.setEnabled(false);
-    }
-
-    public void habilitaInput() {
 
     }
 
